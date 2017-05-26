@@ -1,6 +1,5 @@
 package com.example.andrea.diariostraordinari.Activity;
 
-//MAremma maiala
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -90,21 +89,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+    // Oggetto FirebaseDatabase per comunicare con il DB
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
 
     private UserLoginTask authTask = null;
-
     // UI references.
     // Referenze per la parte grafica presente in activity_login.xml
     private AutoCompleteTextView matricolaView;
     private EditText passwordView;
     private View progressView;
     private View loginFormView;
-
-    // Oggetto FirebaseDatabase per comunicare con il DB
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -336,82 +333,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         matricolaView.setAdapter(adapter);
     }
 
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String myMatricola;
-        private final String myPassword;
-
-        UserLoginTask(String matricola, String password) {
-            myMatricola = matricola;
-            myPassword = password;
-        }
-
-        //Qui andrebbe testata la connessione ad internet
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        /*** RIF. 3 ***/
-        //Qui connetto l'app al DB Firebase per verificare le credenziali per il login
-        @Override
-        protected void onPostExecute(final Boolean success) {
-
-            authTask = null;
-            showProgress(false);
-
-            //Connetto il DB Firebase
-            DatabaseReference mDatabaseRef;
-
-            mDatabaseRef = database.getReference();
-            mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    if (success) {
-                        //Avvio il metodo per la ricerca delle credenziali
-                         controllaCredenziali(myMatricola, myPassword, dataSnapshot);
-                    } else {
-                        passwordView.setError(getString(R.string.error_incorrect_password));
-                        passwordView.requestFocus();
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-        }
-
-        @Override
-        protected void onCancelled() {
-            authTask = null;
-            showProgress(false);
-        }
-    }
-
     //Metodo per aprire la schermata adatta dell'app in base al tipo di user
     private void apriNuovaSchermata(String tipoUser) {
 
@@ -558,6 +479,81 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Snackbar.make(loginFormView, getString(R.string.user_not_found), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
 
+    }
+
+    private interface ProfileQuery {
+        String[] PROJECTION = {
+                ContactsContract.CommonDataKinds.Email.ADDRESS,
+                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
+        };
+
+        int ADDRESS = 0;
+        int IS_PRIMARY = 1;
+    }
+
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String myMatricola;
+        private final String myPassword;
+
+        UserLoginTask(String matricola, String password) {
+            myMatricola = matricola;
+            myPassword = password;
+        }
+
+        //Qui andrebbe testata la connessione ad internet
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            // TODO: register the new account here.
+            return true;
+        }
+
+        /*** RIF. 3 ***/
+        //Qui connetto l'app al DB Firebase per verificare le credenziali per il login
+        @Override
+        protected void onPostExecute(final Boolean success) {
+
+            authTask = null;
+            showProgress(false);
+
+            //Connetto il DB Firebase
+            DatabaseReference mDatabaseRef;
+
+            mDatabaseRef = database.getReference();
+            mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if (success) {
+                        //Avvio il metodo per la ricerca delle credenziali
+                        controllaCredenziali(myMatricola, myPassword, dataSnapshot);
+                    } else {
+                        passwordView.setError(getString(R.string.error_incorrect_password));
+                        passwordView.requestFocus();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+        @Override
+        protected void onCancelled() {
+            authTask = null;
+            showProgress(false);
+        }
     }
 
 }
