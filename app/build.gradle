@@ -34,5 +34,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-//Plugin FireBase
+//Plugin FireBasej
 apply plugin: 'com.google.gms.google-services'
