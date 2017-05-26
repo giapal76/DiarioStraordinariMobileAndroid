@@ -1,0 +1,92 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.andrea.diariostraordinari.Fragments.TwoFragment">
+
+    <LinearLayout
+        android:id="@+id/opRecordLayout"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/opRecord_RisorsaLayout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/opRecord_RisorsaTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/element_margin"
+                android:hint="@string/textview_record_risorse"
+                android:textSize="@dimen/hint_size" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/opOperaioSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/element_margin"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item">
+            </android.support.v7.widget.AppCompatSpinner>
+
+            <!-- *** DA IMPLEMENTARE *** -->
+            <!-- *** RIF. 3 *** -->
+            <!-- AGGIUNTA ALTRO OPERAIO -->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/opRecord_DescrizioneLayout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/opRecord_DescrizioneTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/element_margin"
+                android:hint="@string/textview_record_descrizione"
+                android:textSize="@dimen/hint_size" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/element_margin">
+
+                <EditText
+                    android:id="@+id/opDescrizioneLavoroEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/motivo_straordinario"
+                    android:inputType="textMultiLine|textAutoCorrect"
+                    android:minLines="5"
+                    android:gravity="top|start"
+                    android:scrollbars="vertical"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/opComuneSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/element_margin"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item">
+            </android.support.v7.widget.AppCompatSpinner>
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/opTipoStraordinarioSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/element_margin"
+                tools:listitem="@layout/support_simple_spinner_dropdown_item">
+            </android.support.v7.widget.AppCompatSpinner>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

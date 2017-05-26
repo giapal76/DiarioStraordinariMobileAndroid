@@ -1,0 +1,139 @@
+<resources>
+    <string name="app_name">Diario Straordinari</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_matricola">Matricola</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Accedi</string>
+    <string name="action_sign_in_short">Accedi</string>
+    <string name="user_not_found">Matricola o password non corretti. Riprovare.</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">Questa password è troppo corta</string>
+    <string name="error_incorrect_password">Questa password non è corretta</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- Strings uscita -->
+    <string name="exit_request">"Stai per uscire dall'applicazione.\nSei sicuro?"
+    </string>
+    <string name="back_DBA_request">"Vuoi tornare al DBAActivity?"
+    </string>
+
+
+    <!-- Strings per i tipi di users leggibili dal DB -->
+    <string name="user_developer">Developer</string>
+    <string name="user_DBA">DBA</string>
+    <string name="user_operaio">Operaio</string>
+    <string name="user_error">TIPO USER NON CORRETTO</string>
+
+    <!-- String per la tabella da selezionare nel DB -->
+    <string name="table_firebase">AttoriTestApp</string>
+
+    <!-- Strings per gli errori -->
+    <!-- Work in progess -->
+    <string name="work_in_progress">Work in progress...</string>
+    <!-- Errori del DB -->
+    <string name="log_e_DB_read">DB READ</string>
+    <string name="log_e_DB_write">DB WRITE</string>
+    <string name="error_DB_read">Errore di letttura del DataBase! Contattare un amministratore</string>
+    <string name="error_DB_write">Errore di scrittura del DataBase! Contattare un amministratore</string>
+
+    <!--Prova elementi Spinner -->
+    <string-array name="attori_array">
+
+        <item>DBA</item>
+        <item>Developer</item>
+        <item>Operaio</item>
+
+    </string-array>
+
+    <!--Prova elementi Spinner -->
+    <string-array name="zone_array">
+
+        <item>DM6A - Molise</item>
+        <item>DM7A - L"Aquila-Teramo</item>
+        <item>DM7B - Pescara-Chieti</item>
+    </string-array>
+
+    <string-array name="uo_array">
+
+        <item>UO 1 - Campobasso</item>
+        <item>UO 2 - Isernia</item>
+        <item>UO 3 - Termoli</item>
+
+        <item>UO 1 - L"Aquila</item>
+        <item>UO 2 - Teramo</item>
+        <item>UO 3 - Sulmona</item>
+
+        <item>UO 1 - Pescara</item>
+        <item>UO 2 - Chieti</item>
+        <item>UO 3 - Vasto-Lanciano</item>
+
+    </string-array>
+
+    <string-array name="straodinario_effettuato_array">
+
+        <item>Straordinario effettuato</item>
+        <item>Straordinario da effettuare</item>
+
+    </string-array>
+
+    <string-array name="operai_array">
+
+        <item>A455556 - Andrea Petrella</item>
+        <item>A455557 - Tizio Rossi</item>
+        <item>A455558 - Caio Verdi</item>
+        <item>A455559 - Sempronio Bianchi</item>
+
+    </string-array>
+
+    <string-array name="comuni_array">
+
+        <item>102 - Campobasso 1</item>
+        <item>103 - Campobasso 2</item>
+        <item>104 - Campobasso 3</item>
+
+    </string-array>
+
+    <string-array name="tipo_straodinario_array">
+
+        <item>Esigenze Programmabili - PGM</item>
+        <item>Mantenimento Servizio Elettrico - SEL</item>
+        <item>Necessità Tecnico Gestionali - GST</item>
+
+    </string-array>
+
+    <!-- Strings Form Operaio -->
+    <string name="textview_intestazione">Intestazione</string>
+    <string name="textview_inizio">Data</string>
+    <string name="textview_record_risorse">Risorse intervenute</string>
+    <string name="textview_record_descrizione">Descrizione attività</string>
+    <string name="motivo_straordinario">Motivo e descrizione dell"attività svolta</string>
+    <string name="textview_record_descrizione_OraIn">Dalle</string>
+    <string name="textview_record_descrizione_OraOut">Alle</string>
+    <string name="action_print">Stampa</string>
+
+    <!-- Strings New Operaio -->
+    <string name="newIdTextView">Id</string>
+    <string name="newNameTextView">Nome</string>
+    <string name="newSurnameTextView">Cognome</string>
+    <string name="newPassTextView">Password</string>
+    <string name="insert_button">Inserisci</string>
+
+    <!-- Strings descrizioni immagini -->
+    <string name="logo_description">logo e-distribuzione</string>
+    <string name="title_activity_login_test">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <!-- Strings snackbar -->
+    <string name="salvataggio_riuscito">Salvataggio avvenuto con successo</string>
+
+
+</resources>

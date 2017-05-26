@@ -1,0 +1,46 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.andrea.diariostraordinari.Fragments.ThreeFragment">
+
+    <LinearLayout
+        android:id="@+id/opRecord_OrarioLayout"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/opRecord_Descrizione_OraInTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            android:hint="@string/textview_record_descrizione_OraIn"
+            android:textSize="@dimen/hint_size" />
+
+        <TimePicker
+            android:id="@+id/opTimePickerIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:timePickerMode="spinner"></TimePicker>
+
+        <TextView
+            android:id="@+id/opRecord_Descrizione_OraOutTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            android:hint="@string/textview_record_descrizione_OraOut"
+            android:textSize="@dimen/hint_size" />
+
+        <TimePicker
+            android:id="@+id/opTimePickerOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:timePickerMode="spinner"></TimePicker>
+
+    </LinearLayout>
+
+</ScrollView>

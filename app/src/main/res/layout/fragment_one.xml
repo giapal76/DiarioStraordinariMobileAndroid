@@ -1,0 +1,67 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.andrea.diariostraordinari.Fragments.OneFragment">
+
+    <LinearLayout
+        android:id="@+id/opIntestazioneLayout"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/opIntestazioneTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            android:hint="@string/textview_intestazione"
+            android:textSize="@dimen/hint_size" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/opZonaSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            tools:listitem="@layout/support_simple_spinner_dropdown_item">
+        </android.support.v7.widget.AppCompatSpinner>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/opUnitàOperativaSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            tools:listitem="@layout/support_simple_spinner_dropdown_item">
+        </android.support.v7.widget.AppCompatSpinner>
+
+        <TextView
+            android:id="@+id/opIninizioTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            android:hint="@string/textview_inizio"
+            android:textSize="@dimen/hint_size" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/opStraordinarioEffettuatoSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            tools:listitem="@layout/support_simple_spinner_dropdown_item">
+        </android.support.v7.widget.AppCompatSpinner>
+
+        <DatePicker
+            android:id="@+id/opGiornoDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            android:layout_gravity="center_horizontal"
+            android:datePickerMode="spinner"
+            android:spinnersShown="true"
+            android:calendarViewShown="false">
+        </DatePicker>
+
+    </LinearLayout>
+
+</ScrollView>

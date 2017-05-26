@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.andrea.diariostraordinari.Activity.OperaioActivity">
+
+    <!-- ScrollView  -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Contenitore generale per tutti gli elementi grafici -->
+        <LinearLayout
+            android:id="@+id/newOpContainerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- contenitore vuoto in testa -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/newOpFakeLinearLayout_focus"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:focusable="true"></LinearLayout>
+
+            <!-- contiene lo spinner -->
+            <LinearLayout
+                android:id="@+id/dbaSelezioneAttoriLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dbaSelezioneAttoriTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/element_margin"
+                    android:hint="@string/textview_intestazione"
+                    android:textSize="@dimen/hint_size" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/dbaSelezioneAttoriSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/element_margin"
+                    tools:listitem="@layout/support_simple_spinner_dropdown_item"></android.support.v7.widget.AppCompatSpinner>
+
+            </LinearLayout>
+
+            <!-- Contenitore nome, cognome e psw -->
+            <LinearLayout
+                android:id="@+id/newUserLayout"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
+
+                <!-- design.widget.TextInputLayout permette di dare animazione all'inserimento
+                     delle scritte -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/element_margin">
+
+                    <!-- Nell'EditText è possibile inserire del testo (al contrario delle TextView
+                         usate solo per visualizzare del testo non editabile-->
+                    <EditText
+                        android:id="@+id/newIdEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine|textAutoCorrect"
+                        android:minLines="1"
+                        android:hint="@string/newIdTextView"
+                        android:gravity="top|start"
+                        android:scrollbars="vertical"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- design.widget.TextInputLayout permette di dare animazione all'inserimento
+                     delle scritte -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/element_margin">
+
+                    <!-- Nell'EditText è possibile inserire del testo (al contrario delle TextView
+                         usate solo per visualizzare del testo non editabile-->
+                    <EditText
+                        android:id="@+id/newNameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine|textAutoCorrect"
+                        android:minLines="1"
+                        android:hint="@string/newNameTextView"
+                        android:gravity="top|start"
+                        android:scrollbars="vertical"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/element_margin">
+
+                    <EditText
+                        android:id="@+id/newSurnameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine|textAutoCorrect"
+                        android:minLines="1"
+                        android:hint="@string/newSurnameTextView"
+                        android:gravity="top|start"
+                        android:scrollbars="vertical"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/element_margin">
+
+                    <EditText
+                        android:id="@+id/newPassEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine|textAutoCorrect"
+                        android:minLines="1"
+                        android:hint="@string/newPassTextView"
+                        android:gravity="top|start"
+                        android:scrollbars="vertical"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+            </LinearLayout>
+
+            <!-- Contenitore pulsante -->
+            <LinearLayout
+                android:id="@+id/newUserButtonLayout"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/new_Insert"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/element_margin"
+                    android:text="@string/insert_button"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+

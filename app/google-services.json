@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "99102488459",
+    "firebase_url": "https://diario-straordinari.firebaseio.com",
+    "project_id": "diario-straordinari",
+    "storage_bucket": "diario-straordinari.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99102488459:android:3458235586d61421",
+        "android_client_info": {
+          "package_name": "com.example.andrea.diariostraordinari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99102488459-3i21fioloq9f35kp1gmov54qbsstasks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.andrea.diariostraordinari",
+            "certificate_hash": "4b04241ba21c8e052f46dbcf76670a1055d60869"
+          }
+        },
+        {
+          "client_id": "99102488459-gdos35i6n5ni0t62fsuda9on4huldrpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl2-vSdVRXZylpLwPfBuAcVD0aDdB9zJk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99102488459-gdos35i6n5ni0t62fsuda9on4huldrpp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
