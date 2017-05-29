@@ -16,7 +16,7 @@ public class Attore {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Attore(String nome, String cognome, String password){
+    public Attore(String idattore, String nome, String cognome, String password){
         this.idattore = idattore;
         this.nome = nome;
         this.cognome = cognome;
