@@ -42,6 +42,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.andrea.diariostraordinari.result.result_accesso;
+import com.example.andrea.diariostraordinari.API.APIservice;
+import com.example.andrea.diariostraordinari.API.APIurl;
+
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /*** LEGENDA COMMENTI:
@@ -74,6 +86,8 @@ import static android.Manifest.permission.READ_CONTACTS;
  * Schermata di login
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
+
 
     //Potrebbe non servire
     /**
