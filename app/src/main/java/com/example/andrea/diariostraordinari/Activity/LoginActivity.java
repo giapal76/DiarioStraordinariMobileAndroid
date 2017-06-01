@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         editTextEmail = (EditText) findViewById(R.id.matricola);
         editTextPassword = (EditText) findViewById(R.id.password);
         buttonAccesso = (Button) findViewById(R.id.sign_in_button);

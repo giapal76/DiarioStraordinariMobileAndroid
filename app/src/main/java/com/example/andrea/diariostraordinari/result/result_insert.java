@@ -2,18 +2,17 @@ package com.example.andrea.diariostraordinari.result;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+/**
+ * Created by Gianni on 01/06/2017.
+ */
 
-public class result_accesso {
-
+public class result_insert {
     @SerializedName("error")
     @Expose
     private Boolean error;
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("tipo")
-    @Expose
-    private String tipo;
 
     public Boolean getError() {
         return error;
@@ -30,13 +29,4 @@ public class result_accesso {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
 }
