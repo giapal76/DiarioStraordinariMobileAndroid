@@ -19,7 +19,6 @@ import com.example.andrea.diariostraordinari.Adapter.Attore;
 import com.example.andrea.diariostraordinari.Adapter.AttoriListAdapter;
 import com.example.andrea.diariostraordinari.R;
 
-import com.example.andrea.diariostraordinari.result.result_accesso;
 import com.example.andrea.diariostraordinari.result.result_insert;
 import com.example.andrea.diariostraordinari.API.APIservice;
 import com.example.andrea.diariostraordinari.API.APIurl;

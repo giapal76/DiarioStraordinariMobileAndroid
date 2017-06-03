@@ -16,6 +16,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.LoginActivity">
+        </activity>
+        <activity android:name=".Activity.OperaioActivity" />
+
+        <activity android:name=".Activity.DBAActivity">
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.OperaioActivity" />
-        <activity android:name=".Activity.DBAActivity" />
-        <activity android:name=".Activity.Nuovo_operaioActivity" />
+        <activity android:name=".Activity.Nuovo_operaioActivity">
+
+        </activity>
         <activity android:name=".Activity.OperaioActivity2">
 
         </activity>
