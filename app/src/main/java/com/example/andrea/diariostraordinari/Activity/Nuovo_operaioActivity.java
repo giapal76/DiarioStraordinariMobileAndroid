@@ -1,39 +1,24 @@
 package com.example.andrea.diariostraordinari.Activity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.andrea.diariostraordinari.Adapter.Attore;
-import com.example.andrea.diariostraordinari.Adapter.AttoriListAdapter;
-import com.example.andrea.diariostraordinari.R;
-
-import com.example.andrea.diariostraordinari.result.result_insert;
 import com.example.andrea.diariostraordinari.API.APIservice;
 import com.example.andrea.diariostraordinari.API.APIurl;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.andrea.diariostraordinari.R;
+import com.example.andrea.diariostraordinari.result.result_insert;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-
-import java.util.ArrayList;
 
 /*** LEGENDA COMMENTI:
  *
@@ -50,6 +35,10 @@ import java.util.ArrayList;
  */
 
 /*** COSE DA FARE
+ *
+ * *** ERRORE SPINNER ***
+ *
+ * VEDI RIF . 3
  *
  * *** DA IMPLEMENTARE ***
  *
@@ -80,15 +69,19 @@ public class Nuovo_operaioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nuovo_operaio);
 
-        ArrayAdapter<CharSequence> adapterAttori = ArrayAdapter.createFromResource(this, R.array.attori_array, android.R.layout.simple_spinner_item);
-        adapterAttori.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAttori2.setAdapter(adapterAttori);
-
-        insertId = (EditText) findViewById(R.id.newIdEditText);
+        insertId = (EditText) findViewById(R.id.newIdEditText); //.1
         spinnerAttori2 = (AppCompatSpinner) findViewById(R.id.dbaSelezioneAttoriSpinner) ;
         insertName = (EditText) findViewById(R.id.newNameEditText);
         insertSurname = (EditText) findViewById(R.id.newSurnameEditText);
         insertPass = (EditText) findViewById(R.id.newPassEditText);
+
+        /*** RIF. 3 ***/
+        /*** ERA QUA L'ERRORE: tu richiamavi spinnerAttori2 nella riga 83 (.2) prima di collegarlo al file xml nella riga 72 (.1)
+         *** TU AVEVI MESSO LE TRE RIGHE QUI SOTTO PRIMA DI QUELLE SOPRA E NON VA MAI FATTO PERCHE' DEVI SEMPRE PRIMA COLLEGARE IL FILE XML PER OGNI ELEMENTO**/
+        ArrayAdapter<CharSequence> adapterAttori = ArrayAdapter.createFromResource(this, R.array.attori_array, android.R.layout.simple_spinner_item);
+        adapterAttori.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAttori2.setAdapter(adapterAttori); //.2
+
 
         final Button insertButton = (Button) findViewById(R.id.new_Insert);
 
