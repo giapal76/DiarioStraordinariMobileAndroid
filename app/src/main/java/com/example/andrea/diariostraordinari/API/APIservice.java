@@ -21,4 +21,5 @@ public interface APIservice {
     Call<result_insert> insertUtente(@Field("idattore")String idattore, @Field("tipo")String tipo, @Field("nome")String nome,
                                      @Field("cognome")String cognome, @Field("password")String password);
 
+
 }
