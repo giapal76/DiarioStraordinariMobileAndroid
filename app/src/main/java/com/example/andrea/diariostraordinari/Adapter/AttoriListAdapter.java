@@ -34,8 +34,6 @@ public class AttoriListAdapter extends ArrayAdapter<Attore> {
 
         ViewHolder holder;
 
-        //Commento giusto per aggiornare github
-
         //Recupero le parti grafiche dove inserire i valori della Card
         if (v == null) {
             v = inflater.inflate(resource, parent, false);
