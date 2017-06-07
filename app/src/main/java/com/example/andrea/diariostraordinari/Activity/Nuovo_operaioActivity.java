@@ -75,6 +75,7 @@ public class Nuovo_operaioActivity extends AppCompatActivity {
         insertSurname = (EditText) findViewById(R.id.newSurnameEditText);
         insertPass = (EditText) findViewById(R.id.newPassEditText);
 
+        //Commento giusto per aggiornare github
         /*** RIF. 3 ***/
         /*** ERA QUA L'ERRORE: tu richiamavi spinnerAttori2 nella riga 83 (.2) prima di collegarlo al file xml nella riga 72 (.1)
          *** TU AVEVI MESSO LE TRE RIGHE QUI SOTTO PRIMA DI QUELLE SOPRA E NON VA MAI FATTO PERCHE' DEVI SEMPRE PRIMA COLLEGARE IL FILE XML PER OGNI ELEMENTO**/

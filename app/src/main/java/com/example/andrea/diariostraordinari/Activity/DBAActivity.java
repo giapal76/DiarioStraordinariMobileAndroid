@@ -291,6 +291,7 @@ public class DBAActivity extends AppCompatActivity {
         //Aggiungo il listener all'oggetto DatabaseReference
         mDatabase.addValueEventListener(postListener);
 
+        //Commento giusto per aggiornare github
         /*** TEST ***/
         /*** VEDI RIF.1 ***/
         testButton.setOnClickListener(new View.OnClickListener() {
