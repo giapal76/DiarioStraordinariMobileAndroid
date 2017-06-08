@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                         catch (Exception e){
                             Snackbar.make(loginFormView, getString(R.string.user_not_found), Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+                            //Commento per aggiornare githuv
                         }
 
                     }
