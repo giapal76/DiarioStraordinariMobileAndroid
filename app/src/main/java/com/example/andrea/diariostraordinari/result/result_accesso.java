@@ -11,7 +11,7 @@ public class result_accesso {
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("tipo")
+    @SerializedName("tipoUtente")
     @Expose
     private String tipo;
 
