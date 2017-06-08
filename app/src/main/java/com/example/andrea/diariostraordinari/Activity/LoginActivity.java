@@ -1,18 +1,20 @@
 package com.example.andrea.diariostraordinari.Activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.example.andrea.diariostraordinari.API.APIservice;
-import com.example.andrea.diariostraordinari.API.APIurl;
 import com.example.andrea.diariostraordinari.R;
 import com.example.andrea.diariostraordinari.result.result_accesso;
+import com.example.andrea.diariostraordinari.API.APIservice;
+import com.example.andrea.diariostraordinari.API.APIurl;
+import com.example.andrea.diariostraordinari.Adapter.Attore;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,15 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 call.enqueue(new Callback<result_accesso>() {
                     @Override
                     public void onResponse(Call<result_accesso> call, Response<result_accesso> response) {
-
-                        try {
-                            apriNuovaSchermata(response.body().getTipo());
-                        }
-                        catch (Exception e){
-                            Snackbar.make(loginFormView, getString(R.string.user_not_found), Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                        }
-
+                    apriNuovaSchermata(response.body().getMessage());
                     }
 
                     @Override
