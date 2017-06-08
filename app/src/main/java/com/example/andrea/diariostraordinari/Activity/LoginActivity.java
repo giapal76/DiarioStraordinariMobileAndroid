@@ -1,20 +1,18 @@
 package com.example.andrea.diariostraordinari.Activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.andrea.diariostraordinari.R;
-import com.example.andrea.diariostraordinari.result.result_accesso;
 import com.example.andrea.diariostraordinari.API.APIservice;
 import com.example.andrea.diariostraordinari.API.APIurl;
-import com.example.andrea.diariostraordinari.Adapter.Attore;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
+import com.example.andrea.diariostraordinari.R;
+import com.example.andrea.diariostraordinari.result.result_accesso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<result_accesso> call, Response<result_accesso> response) {
                     apriNuovaSchermata(response.body().getMessage());
+                        //jamm
                     }
 
                     @Override
