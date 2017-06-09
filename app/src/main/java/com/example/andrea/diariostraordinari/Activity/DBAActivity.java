@@ -104,6 +104,7 @@ public class DBAActivity extends AppCompatActivity {
 
         //Setto il titolo del menù
         getSupportActionBar().setTitle(titoloActivity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /*** TEST ***/
         /*** RIF. 1 ***/
@@ -306,6 +307,19 @@ public class DBAActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /*** Gestione del tasto indietro digitale ***/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                exitByBackKey();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /*** Gestione del tasto indietro ***/

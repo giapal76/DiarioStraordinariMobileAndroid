@@ -64,12 +64,15 @@ public class Nuovo_operaioActivity extends AppCompatActivity {
     EditText insertSurname;
     EditText insertPass;
     AppCompatSpinner spinnerAttori2;
-
+    String titoloActivity = "Nuovo Utente";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nuovo_operaio);
+        //Setto il titolo del menù
+        getSupportActionBar().setTitle(titoloActivity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         insertId = (EditText) findViewById(R.id.newIdEditText); //.1
         spinnerAttori2 = (AppCompatSpinner) findViewById(R.id.dbaSelezioneAttoriSpinner) ;
@@ -86,11 +89,12 @@ public class Nuovo_operaioActivity extends AppCompatActivity {
         spinnerAttori2.setAdapter(adapterAttori); //.2
 
 
-        final Button insertButton = (Button) findViewById(R.id.new_Insert);
+
 
         /*** GESTIONE DEL FloatingActionButton ***/
         FloatingActionButton inserisci = (FloatingActionButton) findViewById(R.id.inserisci);
         inserisci.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view)  {
                 insert();
@@ -126,8 +130,6 @@ public class Nuovo_operaioActivity extends AppCompatActivity {
 
             }
         });
-
-
 
     }
 
