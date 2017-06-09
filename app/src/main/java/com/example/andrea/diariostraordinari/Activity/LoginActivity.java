@@ -7,14 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import android.support.design.widget.Snackbar;
 import com.example.andrea.diariostraordinari.R;
 
 import com.example.andrea.diariostraordinari.result.result_accesso;
 import com.example.andrea.diariostraordinari.API.APIservice;
 import com.example.andrea.diariostraordinari.API.APIurl;
 import com.example.andrea.diariostraordinari.Adapter.Attore;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 
 import retrofit2.Call;
@@ -61,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<result_accesso> call, Response<result_accesso> response) {
                         Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    //apriNuovaSchermata(response.body().getTipo());
+                        apriNuovaSchermata(response.body().getTipo());
                     }
 
                     @Override
