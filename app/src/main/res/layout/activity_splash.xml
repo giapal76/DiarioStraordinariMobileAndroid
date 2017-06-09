@@ -17,13 +17,22 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
+        android:id="@+id/textViewSplash2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Diario Straordinari"
+        android:layout_marginBottom="40dp"
+        android:layout_alignBottom="@+id/enel"
+        android:layout_alignEnd="@+id/enel" />
+
+    <TextView
         android:id="@+id/textViewSplash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Created By PalmieriPetrella Group"
-        android:layout_alignBottom="@+id/enel"
-        android:layout_alignEnd="@+id/enel"
-        android:layout_marginBottom="38dp" />
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
