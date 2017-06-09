@@ -1,6 +1,8 @@
 package com.example.andrea.diariostraordinari.Activity;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
@@ -86,13 +88,15 @@ public class Nuovo_operaioActivity extends AppCompatActivity {
 
         final Button insertButton = (Button) findViewById(R.id.new_Insert);
 
-        insertButton.setOnClickListener(new View.OnClickListener() {
+        /*** GESTIONE DEL FloatingActionButton ***/
+        FloatingActionButton inserisci = (FloatingActionButton) findViewById(R.id.inserisci);
+        inserisci.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view)  {
                 insert();
             }
+            private void insert(){
 
-            private void insert() {
                 String idattore = insertId.getText().toString();
                 String tipo = spinnerAttori2.getSelectedItem().toString();
                 String nome = insertName.getText().toString();
@@ -119,8 +123,11 @@ public class Nuovo_operaioActivity extends AppCompatActivity {
                         Toast.makeText(Nuovo_operaioActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
+
+
 
     }
 
