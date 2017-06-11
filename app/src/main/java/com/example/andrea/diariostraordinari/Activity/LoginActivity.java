@@ -1,20 +1,18 @@
 package com.example.andrea.diariostraordinari.Activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.support.design.widget.Snackbar;
-import com.example.andrea.diariostraordinari.R;
 
-import com.example.andrea.diariostraordinari.result.result_accesso;
 import com.example.andrea.diariostraordinari.API.APIservice;
 import com.example.andrea.diariostraordinari.API.APIurl;
-import com.example.andrea.diariostraordinari.Adapter.Attore;
-import android.util.Log;
+import com.example.andrea.diariostraordinari.R;
+import com.example.andrea.diariostraordinari.result.result_accesso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<result_accesso> call, Response<result_accesso> response) {
                         Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        apriNuovaSchermata(response.body().getTipo());
+                        apriNuovaSchermata(response);
                     }
 
                     @Override
@@ -74,30 +72,42 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //Metodo per aprire la schermata adatta dell'app in base al tipo di user
-    private void apriNuovaSchermata(String tipoUser) {
+    /*** HO MODIFICATO IL METODO PERCHE' L'APP ANDAVA IN CRASH SE VENGONO INSERITE CREDENZIALI ERRATE ***/
+    private void apriNuovaSchermata(Response<result_accesso> response) {
 
 
+        String tipoUser = "";
 
-        if (tipoUser.equals(getString(R.string.user_developer)) || tipoUser.equals(getString(R.string.user_DBA))){
-            finish();
-            activityStart(DBAActivity.class);
-        }
+        if(!response.body().getError()) {
 
-        else if (tipoUser.equals(getString(R.string.user_operaio))){
-            finish();
-        /*** TEST ***/
-        /*** RIF. 6 ***/
-            //Provo i fragments
-            //activityStart(OperaioActivity.class);
-            activityStart(OperaioActivity2.class);
+            tipoUser = response.body().getTipo();
+
+            if (tipoUser.equals(getString(R.string.user_developer)) || tipoUser.equals(getString(R.string.user_DBA))) {
+                finish();
+                activityStart(DBAActivity.class);
+            } else if (tipoUser.equals(getString(R.string.user_operaio))) {
+                finish();
+                /*** TEST ***/
+                /*** RIF. 6 ***/
+                //Provo i fragments
+                //activityStart(OperaioActivity.class);
+                activityStart(OperaioActivity2.class);
+            } else {
+
+                Log.e(getString(R.string.log_e_DB_read), getString(R.string.user_error));
+                Log.e(getString(R.string.log_e_DB_read), "TIPO USER RILEVATO: " + tipoUser);
+                //  Snackbar.make(loginFormView, getString(R.string.error_DB_read), Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
+
+            }
         }
 
         else {
 
             Log.e(getString(R.string.log_e_DB_read), getString(R.string.user_error));
             Log.e( getString(R.string.log_e_DB_read), "TIPO USER RILEVATO: " + tipoUser);
-            Snackbar.make(loginFormView, getString(R.string.error_DB_read), Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+            //  Snackbar.make(loginFormView, getString(R.string.error_DB_read), Snackbar.LENGTH_LONG)
+            //        .setAction("Action", null).show();
 
         }
 
