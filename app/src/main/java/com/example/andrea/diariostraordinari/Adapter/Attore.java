@@ -7,6 +7,7 @@ package com.example.andrea.diariostraordinari.Adapter;
 public class Attore {
 
     private String idattore;
+    private String tipo;
     private String nome;
     private String cognome;
     private String password;
@@ -16,8 +17,9 @@ public class Attore {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Attore(String idattore, String nome, String cognome, String password){
+    public Attore(String idattore, String tipo, String nome, String cognome, String password){
         this.idattore = idattore;
+        this.tipo = tipo;
         this.nome = nome;
         this.cognome = cognome;
         this.password = password;
@@ -26,6 +28,8 @@ public class Attore {
     public String getIdattore() {
         return idattore;
     }
+
+    public String getTipo() { return tipo; }
 
     public String getNome() {
         return nome;

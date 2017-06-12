@@ -39,6 +39,7 @@ public class DBAActivity2 extends AppCompatActivity {
     //ListView e adapter per visualizzare gli utenti in una lista
     ListView dbaListView;
     AttoriListAdapter attoriListAdapter;
+    AppCompatSpinner spinnerAttori;
 
     String titoloActivity = "DBA Activity";
 
@@ -81,7 +82,7 @@ public class DBAActivity2 extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Spinner (menù a tendina)
-        final AppCompatSpinner spinnerAttori = (AppCompatSpinner) findViewById(R.id.dbaSelezioneAttoreSpinner);
+        spinnerAttori = (AppCompatSpinner) findViewById(R.id.dbaSelezioneAttoreSpinner);
 
         /*** TEST ***/
         /*** VEDI RIF. 2 ***/
@@ -103,7 +104,9 @@ public class DBAActivity2 extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 try {
-                    listaUtenti(getApplicationContext());
+
+                    listaUtenti(getApplicationContext(), false);
+
                 }
                 catch (Exception e){
                     Log.e("Exception: ", e.toString());
@@ -114,12 +117,18 @@ public class DBAActivity2 extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+                try {
+
+                    listaUtenti(getApplicationContext(), true);
+
+                }
+                catch (Exception e){
+                    Log.e("Exception: ", e.toString());
+                }
+
             }
 
         });
-
-        attoriListAdapter = new AttoriListAdapter(this, R.layout.attore_view, new ArrayList<Attore>());
-        dbaListView.setAdapter(attoriListAdapter);
 
     }
 
@@ -132,7 +141,7 @@ public class DBAActivity2 extends AppCompatActivity {
 
     }
 
-    private void listaUtenti(final Context context) {
+    private void listaUtenti(final Context context, final boolean no_filter) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(APIurl.BASE_URL)
@@ -147,7 +156,8 @@ public class DBAActivity2 extends AppCompatActivity {
             public void onResponse(Call<result_listaUtenti> call, Response<result_listaUtenti> response) {
 
                 List<Attore> list = response.body().getUtenti();
-                attoriListAdapter = new AttoriListAdapter(context, R.layout.attore_view, new ArrayList<Attore>(list));
+                List<Attore> filtered_list = filtraLista(list, no_filter);
+                attoriListAdapter = new AttoriListAdapter(context, R.layout.attore_view, new ArrayList<Attore>(filtered_list));
                 dbaListView.setAdapter(attoriListAdapter);
 
             }
@@ -157,6 +167,24 @@ public class DBAActivity2 extends AppCompatActivity {
                 Toast.makeText(DBAActivity2.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private List<Attore> filtraLista(List<Attore> list, boolean no_filter){
+
+        String filtro = spinnerAttori.getSelectedItem().toString();
+        List<Attore> new_list = new ArrayList<Attore>();
+
+        if(!no_filter) {
+            for (Attore tmp : list) {
+
+                if (tmp.getTipo().equals(filtro))
+                    new_list.add(tmp);
+
+            }
+        }
+
+        return new_list;
+
     }
 
 }

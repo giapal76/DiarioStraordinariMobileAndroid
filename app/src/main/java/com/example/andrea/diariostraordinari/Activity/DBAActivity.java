@@ -365,7 +365,7 @@ public class DBAActivity extends AppCompatActivity {
 
         String table = "AttoriTestApp";
 
-        Attore user = new Attore(tipoAttore, nome, cognome, password);
+        Attore user = new Attore(userId, tipoAttore, nome, cognome, password);
 
         mDatabase.child(table).child(tipoAttore).child(userId).setValue(user);
 
