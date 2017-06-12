@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.andrea.diariostraordinari.Activity.DBAActivity2">
+
+<!-- Contenitore generale per tutti gli elementi grafici -->
+<LinearLayout
+    android:id="@+id/dbaContainerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Questa è una figata che mi è servita parecchie volte:
+         creo un contenitore vuoto in testa a tutto per settare il focus dell'activity in
+         cima alla lista degli elementi.
+         Lo faccio perché gli elementi editabili (testo e date/orari da inserire)
+         di default richiedono il focus
+         e quindi l'app "scrollerebbe" automaticamente in basso -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/devFakeLinearLayout_focus"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:focusable="true"></LinearLayout>
+
+    <!-- Di qui in avanti utilizzo una tecnica che ho ereditato da una guida di grafica:
+         Ogni tipologia di elemento deve essere inserito in un contenitore per gestire
+         al meglio il Layout, questo permette di dare una struttura corretta e
+         fortemente personalizzabile allo stesso tempo -->
+    <LinearLayout
+        android:id="@+id/dbaSelezioneAttoreLayout"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dbaSelezioneAttoreTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            android:hint="@string/textview_intestazione"
+            android:textSize="@dimen/hint_size" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/dbaSelezioneAttoreSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            tools:listitem="@layout/support_simple_spinner_dropdown_item">
+        </android.support.v7.widget.AppCompatSpinner>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dbaListViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/dbaListView"
+            android:layout_margin="@dimen/element_margin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+        </ListView>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

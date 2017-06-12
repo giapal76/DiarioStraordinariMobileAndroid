@@ -48,6 +48,8 @@ import java.util.List;
 
 /*** COSE DA FARE
  *
+ * VA TUTTO COMMENTATO PER BENE
+ *
  * *** DA MODIFICARE ***
  *
  * VEDI RIF. 1

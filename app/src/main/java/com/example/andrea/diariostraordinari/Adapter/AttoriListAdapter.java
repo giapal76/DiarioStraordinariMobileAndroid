@@ -1,6 +1,7 @@
 package com.example.andrea.diariostraordinari.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,21 +39,28 @@ public class AttoriListAdapter extends ArrayAdapter<Attore> {
         if (v == null) {
             v = inflater.inflate(resource, parent, false);
             holder = new ViewHolder();
+            holder.idTextView = (TextView) v.findViewById(R.id.idAttore);
             holder.nomeTextView = (TextView) v.findViewById(R.id.nomeAttore);
             holder.cognomeTextView = (TextView) v.findViewById(R.id.cognomeAttore);
             v.setTag(holder);
-        } else {
+        }else {
             holder = (ViewHolder) v.getTag();
         }
 
         //Inserisco i valori nelle parti grafiche
+        holder.idTextView.setText(attore.getIdattore());
         holder.nomeTextView.setText(attore.getNome());
         holder.cognomeTextView.setText(attore.getCognome());
+        //Setto il colore delle scritte
+        holder.idTextView.setTextColor(Color.BLACK);
+        holder.nomeTextView.setTextColor(Color.BLACK);
+        holder.cognomeTextView.setTextColor(Color.BLACK);
 
         return v;
     }
 
     private static class ViewHolder {
+        TextView idTextView;
         TextView nomeTextView;
         TextView cognomeTextView;
     }
