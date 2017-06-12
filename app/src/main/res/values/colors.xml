@@ -5,4 +5,5 @@
     <color name="colorAccent">#ffa640</color>
     <color name="primary_text">#AAAAAA</color>
     <color name="secondary_text">#C8E8FF</color>
+    <color name="BackgroundSplash">#cbe9ff</color>
 </resources>
