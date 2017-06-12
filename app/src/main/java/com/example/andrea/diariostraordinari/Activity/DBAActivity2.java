@@ -109,7 +109,9 @@ public class DBAActivity2 extends AppCompatActivity {
 
                 }
                 catch (Exception e){
+
                     Log.e("Exception: ", e.toString());
+
                 }
 
             }
