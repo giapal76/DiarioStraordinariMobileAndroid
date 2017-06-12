@@ -99,8 +99,10 @@ public class OperaioActivity2 extends AppCompatActivity {
         Da richiamare solo all'apertura dell'activity altrimenti resetta i campi quando si
         gira lo schermo */
         if(fist){
+
             inizializzaArrayStringhe();
             fist = false;
+
         }
 
         /*** VEDI RIF. 3 ***/
