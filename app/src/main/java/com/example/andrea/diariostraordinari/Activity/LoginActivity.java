@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 /*** RIF. 6 ***/
                 //Provo i fragments
                 //activityStart(OperaioActivity.class);
-                activityStart(OperaioActivity2.class);
+                activityStart(OperaioActivity.class);
             } else {
 
                 Log.e(getString(R.string.log_e_DB_read), getString(R.string.user_error));
