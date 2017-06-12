@@ -13,10 +13,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSpinner;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
 
 import com.example.andrea.diariostraordinari.Adapter.MyPrintDocumentAdapter;
 import com.example.andrea.diariostraordinari.Fragments.OneFragment;
@@ -77,11 +82,18 @@ public class OperaioActivity2 extends AppCompatActivity {
     //Titolo da settare nell'activity
     String titoloActivity = "Operaio Activity";
 
+    //Valori da stampare
+    private final int values = 14;
+    private String [] printableValues = new String[values];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operaio2);
+
+        //Metodo per inizializzare l'array delle stringhe per la stampa
+        inizializzaArrayStringhe();
 
         /*** VEDI RIF. 3 ***/
         //Acquisisco l'ActionBar
@@ -117,8 +129,12 @@ public class OperaioActivity2 extends AppCompatActivity {
                     @Override
                     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                            float velocityY) {
-                        return super.onFling(e1 , e2, velocityX, velocityY);
-                        //FAI QUALCOSA
+
+                        int item_corrente = viewPager.getCurrentItem();
+
+                        acquistaStringhe(item_corrente, true);
+
+                        return super.onFling(e1, e2, velocityX, velocityY);
 
                     }
                 });
@@ -142,7 +158,10 @@ public class OperaioActivity2 extends AppCompatActivity {
                         .setAction("Action", null).show();
 
                 /*** VEDI RIF. 1 ***/
-                stampaDocumento();
+
+                int item_corrente = viewPager.getCurrentItem();
+
+                stampaDocumento(item_corrente);
 
             }
         });
@@ -239,17 +258,104 @@ public class OperaioActivity2 extends AppCompatActivity {
 
     }
 
+    private void inizializzaArrayStringhe(){
+
+        for(int i = 0; i < values; i++) {
+            printableValues[i] = "";
+        }
+
+    }
+
     /*** RIF.1 ***/
     /*** Vedi Adapter/MyPrintDocumentAdapter.java ***/
     //Metodo per avviare la stampa di un documento
-    private void stampaDocumento(){
+    private void stampaDocumento(int item_corrente){
 
         PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
 
         String jobName = this.getString(R.string.app_name) + " Document";
 
+        acquistaStringhe(item_corrente, false);
+
+        for(int i = 0; i < values; i++) {
+            Log.e("el n " + i, printableValues[i]);
+        }
+
         printManager.print(jobName, new MyPrintDocumentAdapter(this), null);
 
+    }
+
+    private void acquistaStringheOneFragment(){
+
+        AppCompatSpinner spinnerZona = (AppCompatSpinner) findViewById(R.id.opZonaSpinner);
+        AppCompatSpinner spinnerUnitàOperativa = (AppCompatSpinner) findViewById(R.id.opUnitàOperativaSpinner);
+        AppCompatSpinner spinnerStraordinarioEffettuato = (AppCompatSpinner) findViewById(R.id.opStraordinarioEffettuatoSpinner);
+        DatePicker datePickerGiorno = (DatePicker) findViewById(R.id.opGiornoDatePicker);
+
+        printableValues[0] = spinnerZona.getSelectedItem().toString();
+        printableValues[1] = spinnerUnitàOperativa.getSelectedItem().toString();
+        printableValues[2] = spinnerStraordinarioEffettuato.getSelectedItem().toString();
+        printableValues[3] = Integer.toString(datePickerGiorno.getDayOfMonth());
+        printableValues[4] = Integer.toString(datePickerGiorno.getMonth());
+        printableValues[5] = Integer.toString(datePickerGiorno.getYear());
+
+    }
+
+    private void acquistaStringheTwoFragment(){
+
+        AppCompatSpinner spinnerOperaio = (AppCompatSpinner) findViewById(R.id.opOperaioSpinner);
+        EditText editTextDescrizioneLavoro = (EditText) findViewById(R.id.opDescrizioneLavoroEditText);
+        AppCompatSpinner spinnerComune = (AppCompatSpinner) findViewById(R.id.opComuneSpinner);
+        AppCompatSpinner spinnerTipoStraordinario = (AppCompatSpinner) findViewById(R.id.opTipoStraordinarioSpinner);
+
+        printableValues[6] = spinnerOperaio.getSelectedItem().toString();
+        printableValues[7] = editTextDescrizioneLavoro.getText().toString();
+        printableValues[8] = spinnerComune.getSelectedItem().toString();
+        printableValues[9] = spinnerTipoStraordinario.getSelectedItem().toString();
+
+    }
+
+    private void acquistaStringheThreeFragment(){
+
+        TimePicker timePickerInizio = (TimePicker) findViewById(R.id.opTimePickerInizio);
+        TimePicker timePickerFine = (TimePicker) findViewById(R.id.opTimePickerFine);
+
+        printableValues[10] = Integer.toString(timePickerInizio.getCurrentMinute());
+        printableValues[11] = Integer.toString(timePickerInizio.getCurrentHour());
+        printableValues[12] = Integer.toString(timePickerFine.getCurrentMinute());
+        printableValues[13] = Integer.toString(timePickerFine.getCurrentHour());
+
+    }
+
+    private void acquistaStringhe(int item_corrente, boolean is_swiped){
+
+        try {
+
+            switch (item_corrente) {
+
+                case 0:
+                    acquistaStringheOneFragment();
+                    break;
+
+                case 1:
+                    acquistaStringheTwoFragment();
+                    break;
+
+                case 2:
+                    acquistaStringheThreeFragment();
+                    break;
+
+                default:
+                    break;
+
+            }
+
+        }catch (Exception e){
+            if(is_swiped)
+                Log.e("OperaioActivity2.java", "IMPOSSIBILE ACQUISIRE LE STRINGHE DAL FRAGMENT DURANTE LO SWIPE");
+            else
+                Log.e("OperaioActivity2.java", "IMPOSSIBILE ACQUISIRE LE STRINGHE DAL FRAGMENT CON IL FLOATING BUTTON");
+        }
     }
 
 }

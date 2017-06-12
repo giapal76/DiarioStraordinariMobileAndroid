@@ -20,11 +20,11 @@
             android:textSize="@dimen/hint_size" />
 
         <TimePicker
-            android:id="@+id/opTimePickerIn"
+            android:id="@+id/opTimePickerInizio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:timePickerMode="spinner"></TimePicker>
+            android:timePickerMode="spinner"/>
 
         <TextView
             android:id="@+id/opRecord_Descrizione_OraOutTextView"
@@ -35,11 +35,11 @@
             android:textSize="@dimen/hint_size" />
 
         <TimePicker
-            android:id="@+id/opTimePickerOut"
+            android:id="@+id/opTimePickerFine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:timePickerMode="spinner"></TimePicker>
+            android:timePickerMode="spinner"/>
 
     </LinearLayout>
 
