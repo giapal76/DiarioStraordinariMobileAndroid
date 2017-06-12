@@ -62,9 +62,15 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
     public int horizontal_external_margin = 2970/k_external_margin;
     public int vertical_external_margin = 2100/k_external_margin;
 
-    public MyPrintDocumentAdapter(Context context)
+    //Valori da stampare
+    private int values;
+    private String [] printableValues = new String[values];
+
+    public MyPrintDocumentAdapter(Context context, int values, String [] printableValues)
     {
         this.context = context;
+        this.values = values;
+        this.printableValues = printableValues;
     }
 
     @Override
@@ -170,19 +176,18 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
         int nome_operaio_text_size = 8000/k_external_margin;
         int tipo_straordinario_text_size = 5200/k_external_margin;
 
-        String ZONA = "Zona MOLISE";
-        String UO = "Unità UO 1 - CAMPOBASSO";
+        String ZONA = printableValues[0];
+        String UO = printableValues[1];
         String PRESTAZIONE_DI_LAVORO = "PRESTAZIONE DI LAVORO STRAORDINARIO";
-        String EFFETTUATO = "Straordinario effettuato";
-        String DATA = "01/01/2017";
-        String OPERAIO1 = "A455556 - Andrea Petrella";
-        String DESCRIZIONE = "CE CON DISPLAY GUASTO";
-        String COMUNE = "104 - Campobasso 1";
-        String TIPO_STRAORDINARIO = "SEL - MANTENIMENTO SERVIZIO ELETTRICO";
-        String DALLE = "20:00";
-        String ALLE = "22:00";
-        String ORE = "2h e 0m";
-
+        String EFFETTUATO = printableValues[2];
+        String DATA = printableValues[3] + "/" + printableValues[4] + "/" + printableValues[5];
+        String OPERAIO1 = printableValues[6];
+        String DESCRIZIONE = printableValues[7];
+        String COMUNE = printableValues[8];
+        String TIPO_STRAORDINARIO = printableValues[9];
+        String DALLE = printableValues[10] + ":" + printableValues[11];
+        String ALLE = printableValues[12] + ":" + printableValues[13];
+        String ORE = calcolaOre(DALLE, ALLE);
 
         pagenumber++;
 
@@ -259,7 +264,10 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
 
                 drawCell(true, canvas, paintable_border, paintable_text, DALLE, margin, 4 * canvas.getWidth() / colonne, (i - 1) * canvas.getHeight() / tot_righe, (4 * canvas.getWidth() / colonne) + ((canvas.getWidth()) - (4 * canvas.getWidth() / colonne)) / 3, i * canvas.getHeight() / tot_righe);
                 drawCell(true, canvas, paintable_border, paintable_text, ALLE, margin, (4 * canvas.getWidth() / colonne) + ((canvas.getWidth()) - (4 * canvas.getWidth() / colonne)) / 3, (i - 1) * canvas.getHeight() / tot_righe, (4 * canvas.getWidth() / colonne) + 2 * ((canvas.getWidth()) - (4 * canvas.getWidth() / colonne)) / 3, i * canvas.getHeight() / tot_righe);
+
+                setPaintableTextParams(paintable_text, Color.BLACK, secondary_text_size);
                 drawCell(true, canvas, paintable_border, paintable_text, ORE, margin, (4 * canvas.getWidth() / colonne) + 2 * ((canvas.getWidth()) - (4 * canvas.getWidth() / colonne)) / 3, (i - 1) * canvas.getHeight() / tot_righe, (canvas.getWidth() - horizontal_external_margin), i * canvas.getHeight() / tot_righe);
+                setPaintableTextParams(paintable_text, Color.BLACK, primary_text_size);
 
             }
             else {
@@ -348,6 +356,47 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
         paint.setColor(color);
         paint.setTextSize(text_size);
 
+    }
+
+    private String calcolaOre(String start, String finish){
+
+        try {
+            int start_h = Integer.parseInt(start.substring(0, 2));
+            int start_m = (start_h * 60) + Integer.parseInt(start.substring(3, 5));
+
+            int finish_h = Integer.parseInt(finish.substring(0, 2));
+            int finish_m = (finish_h * 60) + Integer.parseInt(finish.substring(3, 5));
+
+            int time = saltoDiData(start_m, finish_m);
+
+            int time_h = time / 60;
+            int time_m = time % 60;
+
+            return formattaOrario(time_h) + "h e " + formattaOrario(time_m) + "m";
+        }catch (Exception e){
+            return "00h e 00m";
+        }
+
+    }
+
+    private String formattaOrario(int n){
+
+        if(n < 10)
+            return "0" + Integer.toString(n);
+        else
+            return Integer.toString(n);
+
+    }
+
+    private int saltoDiData(int start_m, int finish_m){
+
+        int ris = finish_m - start_m;;
+
+        if(ris < 0)
+
+            ris = ((24 * 60) - start_m) + finish_m;
+
+        return ris;
     }
 
 

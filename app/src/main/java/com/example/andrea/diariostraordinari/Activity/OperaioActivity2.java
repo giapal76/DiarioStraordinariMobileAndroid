@@ -109,13 +109,29 @@ public class OperaioActivity2 extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
-        viewPager.setOnTouchListener(new View.OnTouchListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
 
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                return false;
+                int item_corrente = viewPager.getCurrentItem();
+
+                Log.e("viewPager", "OnTouchListener");
+                Log.e("viewPager", "CurrentItem = " + item_corrente);
+
+                acquistaStringhe(item_corrente, true);
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
-
 
         // Controllo dello swipe da una tab all'altra
         final GestureDetector gesture = new GestureDetector(this,
@@ -277,11 +293,7 @@ public class OperaioActivity2 extends AppCompatActivity {
 
         acquistaStringhe(item_corrente, false);
 
-        for(int i = 0; i < values; i++) {
-            Log.e("el n " + i, printableValues[i]);
-        }
-
-        printManager.print(jobName, new MyPrintDocumentAdapter(this), null);
+        printManager.print(jobName, new MyPrintDocumentAdapter(this, values, printableValues), null);
 
     }
 
@@ -320,10 +332,10 @@ public class OperaioActivity2 extends AppCompatActivity {
         TimePicker timePickerInizio = (TimePicker) findViewById(R.id.opTimePickerInizio);
         TimePicker timePickerFine = (TimePicker) findViewById(R.id.opTimePickerFine);
 
-        printableValues[10] = Integer.toString(timePickerInizio.getCurrentMinute());
-        printableValues[11] = Integer.toString(timePickerInizio.getCurrentHour());
-        printableValues[12] = Integer.toString(timePickerFine.getCurrentMinute());
-        printableValues[13] = Integer.toString(timePickerFine.getCurrentHour());
+        printableValues[10] = formattaOrario(timePickerInizio.getCurrentHour());
+        printableValues[11] = formattaOrario(timePickerInizio.getCurrentMinute());
+        printableValues[12] = formattaOrario(timePickerFine.getCurrentHour());
+        printableValues[13] = formattaOrario(timePickerFine.getCurrentMinute());
 
     }
 
@@ -356,6 +368,15 @@ public class OperaioActivity2 extends AppCompatActivity {
             else
                 Log.e("OperaioActivity2.java", "IMPOSSIBILE ACQUISIRE LE STRINGHE DAL FRAGMENT CON IL FLOATING BUTTON");
         }
+    }
+
+    private String formattaOrario(int n){
+
+        if(n < 10)
+            return "0" + Integer.toString(n);
+        else
+            return Integer.toString(n);
+
     }
 
 }

@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
-import com.example.andrea.diariostraordinari.Adapter.MyPrintDocumentAdapter;
 import com.example.andrea.diariostraordinari.R;
 
 /*** LEGENDA COMMENTI:
@@ -177,7 +176,7 @@ public class OperaioActivity extends AppCompatActivity {
 
         String jobName = this.getString(R.string.app_name) + " Document";
 
-        printManager.print(jobName, new MyPrintDocumentAdapter(this), null);
+        //printManager.print(jobName, new MyPrintDocumentAdapter(this), null);
 
     }
 
