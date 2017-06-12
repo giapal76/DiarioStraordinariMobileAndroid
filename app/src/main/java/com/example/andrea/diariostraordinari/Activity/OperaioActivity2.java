@@ -86,14 +86,22 @@ public class OperaioActivity2 extends AppCompatActivity {
     private final int values = 14;
     private String [] printableValues = new String[values];
 
+    //Variabile di controllo per l'apertura dell'app
+    private boolean fist = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operaio2);
 
-        //Metodo per inizializzare l'array delle stringhe per la stampa
-        inizializzaArrayStringhe();
+        /*Metodo per inizializzare l'array delle stringhe per la stampa
+        Da richiamare solo all'apertura dell'activity altrimenti resetta i campi quando si
+        gira lo schermo */
+        if(fist){
+            inizializzaArrayStringhe();
+            fist = false;
+        }
 
         /*** VEDI RIF. 3 ***/
         //Acquisisco l'ActionBar
