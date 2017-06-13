@@ -117,7 +117,11 @@ public class Nuovo_utenteActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<result_insert> call, Response<result_insert> response) {
                         Toast.makeText(Nuovo_utenteActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        reset();
+
+                        //Controllo importante in modo da non resettare i campi nel caso in cui l'insert non va a buon fine
+                        if(!response.body().getError())
+                            reset();
+
                     }
 
                     @Override
@@ -131,11 +135,11 @@ public class Nuovo_utenteActivity extends AppCompatActivity {
 
     }
 
-private void reset (){
-    insertId.setText(" ");
-    insertName.setText(" ");
-    insertSurname.setText(" ");
-    insertPass.setText(" ");
-}
+    private void reset () {
+        insertId.setText(" ");
+        insertName.setText(" ");
+        insertSurname.setText(" ");
+        insertPass.setText(" ");
+    }
 
 }
