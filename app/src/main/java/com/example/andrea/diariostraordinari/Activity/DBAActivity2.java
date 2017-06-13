@@ -21,6 +21,7 @@ import com.example.andrea.diariostraordinari.API.APIurl;
 import com.example.andrea.diariostraordinari.Adapter.Attore;
 import com.example.andrea.diariostraordinari.Adapter.AttoriListAdapter;
 import com.example.andrea.diariostraordinari.R;
+import com.example.andrea.diariostraordinari.result.result_delete;
 import com.example.andrea.diariostraordinari.result.result_listaUtenti;
 
 import java.util.ArrayList;
@@ -86,7 +87,8 @@ public class DBAActivity2 extends AppCompatActivity {
                 modifica();
                 return true;
             case R.id.MENU_1:
-                elimina();
+                String my_id = ((Attore) dbaListView.getAdapter().getItem(info.position)).getIdattore();
+                elimina(my_id);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -216,8 +218,31 @@ public class DBAActivity2 extends AppCompatActivity {
 
     }
 
-    private void elimina(){
-        Toast.makeText(DBAActivity2.this, "Elimina " + getString(R.string.work_in_progress), Toast.LENGTH_SHORT).show();
+    private void elimina(final String idattore){
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIurl.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        APIservice service = retrofit.create(APIservice.class);  //accesso a tutti i servizi che ho fatto
+
+        Call<result_delete> call = service.cancellaUtente(idattore);
+        call.enqueue(new Callback<result_delete>() {
+            @Override
+            public void onResponse(Call<result_delete> call, Response<result_delete> response) {
+                Log.e("Response", response.body().getMessage());
+                Toast.makeText(DBAActivity2.this, idattore + " eliminato", Toast.LENGTH_SHORT).show();
+                listaUtenti(getApplicationContext(), false);
+            }
+
+            @Override
+            public void onFailure(Call<result_delete> call, Throwable t) {
+                Toast.makeText(DBAActivity2.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void modifica(){
