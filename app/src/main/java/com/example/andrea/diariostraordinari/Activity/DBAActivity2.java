@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -70,6 +71,29 @@ public class DBAActivity2 extends AppCompatActivity {
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.MENU_0:
+                modifica();
+                return true;
+            case R.id.MENU_1:
+                elimina();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dba2);
@@ -88,7 +112,7 @@ public class DBAActivity2 extends AppCompatActivity {
         /*** VEDI RIF. 2 ***/
         //Creo l'adapter per inserire i valori nello spinner
         //Si crea un Array di stringhe per visualizzarle negli spinner
-        ArrayAdapter<CharSequence> adapterAttori = ArrayAdapter.createFromResource(this,
+        final ArrayAdapter<CharSequence> adapterAttori = ArrayAdapter.createFromResource(this,
                 R.array.attori_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapterAttori.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -132,6 +156,8 @@ public class DBAActivity2 extends AppCompatActivity {
 
         });
 
+        registerForContextMenu(dbaListView);
+
     }
 
     //Metodo per lanciare correttamente una nuova activity
@@ -161,6 +187,7 @@ public class DBAActivity2 extends AppCompatActivity {
                 List<Attore> filtered_list = filtraLista(list, no_filter);
                 attoriListAdapter = new AttoriListAdapter(context, R.layout.attore_view, new ArrayList<Attore>(filtered_list));
                 dbaListView.setAdapter(attoriListAdapter);
+                registerForContextMenu(dbaListView);
 
             }
 
@@ -187,6 +214,14 @@ public class DBAActivity2 extends AppCompatActivity {
 
         return new_list;
 
+    }
+
+    private void elimina(){
+        Toast.makeText(DBAActivity2.this, "Elimina " + getString(R.string.work_in_progress), Toast.LENGTH_SHORT).show();
+    }
+
+    private void modifica(){
+        Toast.makeText(DBAActivity2.this, "Modifica " + getString(R.string.work_in_progress), Toast.LENGTH_SHORT).show();
     }
 
 }
