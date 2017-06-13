@@ -1,66 +1,41 @@
 package com.example.andrea.diariostraordinari.Activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.andrea.diariostraordinari.API.APIservice;
+import com.example.andrea.diariostraordinari.API.APIurl;
 import com.example.andrea.diariostraordinari.Adapter.Attore;
 import com.example.andrea.diariostraordinari.Adapter.AttoriListAdapter;
 import com.example.andrea.diariostraordinari.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.andrea.diariostraordinari.result.result_delete;
+import com.example.andrea.diariostraordinari.result.result_listaUtenti;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/*** LEGENDA COMMENTI:
- *
- * /*** INIBITO *** = CODICE AUTOGENERATO NON RICHIESTO DALLE SPECIFICHE DEL PROGETTO
- *
- * /*** RIF N *** = RIFERIMENTO NUMERO N (SEGNALIBRO PER COMMENTI)
- *
- * /*** VEDI RIF N *** = LA PORZIONE DI PROGRAMMA IN BASSO E' LEGATA AL RIFERIMENTO N
- *
- * /*** DA IMPLEMENTARE *** = CODICE DA IMPLEMENTARE (VEDI COMMENTI IN BASSO)
- *
- * /*** TEST *** = CODICE MOMENTANEO DA MODIFICARE O ELIMINARE SUCCESSIVAMENTE
- *
- */
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-/*** COSE DA FARE
- *
- * *** DA IMPLEMENTARE ***
- *
- * VEDI RIF. 1
- *
- * COMMENTARE TUTTE LE CLASSI E I FILE XML INERENTI ALLA LIST_VIEW ATTORE
- *
- */
-
-/**
- * Schermata di gestione del DBA
- */
 public class DBAActivity extends AppCompatActivity {
-
-    // Oggetto FirebaseDatabase per comunicare con il DB
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference mDatabase = database.getReference();
 
     //View dell'Activity per le notifiche all'utente
     private View myView;
@@ -68,6 +43,7 @@ public class DBAActivity extends AppCompatActivity {
     //ListView e adapter per visualizzare gli utenti in una lista
     ListView dbaListView;
     AttoriListAdapter attoriListAdapter;
+    AppCompatSpinner spinnerAttori;
 
     String titoloActivity = "DBA Activity";
 
@@ -98,31 +74,49 @@ public class DBAActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.MENU_0:
+                modifica();
+                return true;
+            case R.id.MENU_1:
+                String my_id = ((Attore) dbaListView.getAdapter().getItem(info.position)).getIdattore();
+                elimina(my_id);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dba);
+
+        myView = findViewById(R.id.dbaContainerLayout);
+        dbaListView = (ListView) findViewById(R.id.dbaListView);
 
         //Setto il titolo del menù
         getSupportActionBar().setTitle(titoloActivity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*** TEST ***/
-        /*** RIF. 1 ***/
-        //Button provvisorio per inserire elementi nel DB
-        Button testButton = (Button) findViewById(R.id.dbaTestButton);
-        //TextView provvisoria per la visualizzazione dei risultati
-        final TextView testTV = (TextView) findViewById(R.id.dbaTestTextView);
-
-        /*** DA IMPLEMENTARE ***/
-        /*** RIF. 2 ***/
         //Spinner (menù a tendina)
-        final AppCompatSpinner spinnerAttori = (AppCompatSpinner) findViewById(R.id.dbaSelezioneAttoreSpinner);
+        spinnerAttori = (AppCompatSpinner) findViewById(R.id.dbaSelezioneAttoreSpinner);
 
         /*** TEST ***/
         /*** VEDI RIF. 2 ***/
         //Creo l'adapter per inserire i valori nello spinner
         //Si crea un Array di stringhe per visualizzarle negli spinner
-        ArrayAdapter<CharSequence> adapterAttori = ArrayAdapter.createFromResource(this,
+        final ArrayAdapter<CharSequence> adapterAttori = ArrayAdapter.createFromResource(this,
                 R.array.attori_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapterAttori.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -130,184 +124,125 @@ public class DBAActivity extends AppCompatActivity {
         //Applico l'adapter allo spinner
         spinnerAttori.setAdapter(adapterAttori);
 
-        //Setto un Listener per gestire la selezione degli alementi nello Spinner
+        //Setto un Listener per gestire la selezione degli elementi nello Spinner
         spinnerAttori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                DatabaseReference mDatabaseRef;
-                mDatabaseRef = database.getReference();
-                mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                try {
 
-                    /*** TEST ***/
-                    /*** VEDI RIF.1 ***/
-                    /*TUTTO PROVVISORIO A SEGUITO DI VARIE PROVE.
-                      ANDREBBE SEMPLICEMENTE SELEZIONATO IL FILTRO PER SCEGLIERE LA TABELLA
-                      ADATTA ALLA VISUALIZZAZIONE DEGLI ELEMENTI NELLA LISTVIEW (VEDI RIF.2)*/
+                    listaUtenti(getApplicationContext(), false);
 
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                }
+                catch (Exception e){
 
-                        String s = "";
-                        testTV.setText(s);
+                    Log.e("Exception: ", e.toString());
 
-                        String table = "AttoriTestApp";
-                        String tipoAttore = spinnerAttori.getSelectedItem().toString();
-                        String userId = "testAppId";
+                }
 
-                        DataSnapshot filter = dataSnapshot.child(table).child(tipoAttore);
-
-                        for (DataSnapshot snapshot : filter.getChildren()) {
-                            try {
-                                s += snapshot.getKey();
-                                // s += readId(table, tipoAttore, userId, dataSnapshot);
-                                s += "\n";
-                                testTV.setText(s);
-
-
-                            } catch (Exception e) {
-                                Log.e(getString(R.string.error_DB_read), "2");
-                            }
-                        }
-                    /*
-/*
-                        try {
-                            Attore attore;
-                            String s = "";
-                            String table = "AttoriTestApp";
-                            String tipoAttore = spinnerAttori.getSelectedItem().toString();
-                            String userId = "testAppId";
-
-                            attore = readUser(table, tipoAttore, userId, dataSnapshot);
-                            s = getPrintableUser(tipoAttore, attore);
-
-                            testTV.setText(s);
-
-
-                        } catch (Exception e) {
-                            Log.e(getString(R.string.error_DB_read), "1");
-                        }
-                        */
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-
-
-        dbaListView = (ListView) findViewById(R.id.dbaListView);
-
-        attoriListAdapter = new AttoriListAdapter(this, R.layout.attore_view, new ArrayList<Attore>());
-/*
-        // Read from the database
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("db", "Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("db", "Failed to read value.", error.toException());
-            }
-        });
-*/
-
-
-        //Listener per aggiornare i dati visualizzati in tempo reale
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                /*** TEST ***/
-                /*** VEDI RIF.1 **/
-
-                String s = "";
-                testTV.setText(s);
-
-                String table = "AttoriTestApp";
-                String tipoAttore = spinnerAttori.getSelectedItem().toString();
-                String userId = "testAppId";
-
-                DataSnapshot filter = dataSnapshot.child(table).child(tipoAttore);
-
-                for (DataSnapshot snapshot : filter.getChildren()) {
-                    try {
-                        s += snapshot.getKey();
-                       // s += readId(table, tipoAttore, userId, dataSnapshot);
-                        s += "\n";
-                        testTV.setText(s);
-
-
-                    } catch (Exception e) {
-                        Log.e(getString(R.string.error_DB_read), "2");
-                    }
-                }
-            }/*
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
                 try {
-                    Attore attore;
-                    String s = "";
-                    String table = "AttoriTestApp";
-                    String tipoAttore = spinnerAttori.getSelectedItem().toString();
-                    String userId = "testAppId";
 
-                    attore = readUser(table, tipoAttore, userId, dataSnapshot);
-                    s = getPrintableUser(tipoAttore, attore);
+                    listaUtenti(getApplicationContext(), true);
 
-                    testTV.setText(s);
-
-
-                } catch (Exception e) {
-                    Log.e(getString(R.string.error_DB_read), "2");
+                }
+                catch (Exception e){
+                    Log.e("Exception: ", e.toString());
                 }
 
-            }*/
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                String s = getString(R.string.error_DB_read) + " 3";
-                Log.e(getString(R.string.error_DB_read), "2");
-                Snackbar.make(myView, s, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
 
-        };
-        //Aggiungo il listener all'oggetto DatabaseReference
-        mDatabase.addValueEventListener(postListener);
+        });
 
-        //Commento giusto per aggiornare github
-        /*** TEST ***/
-        /*** VEDI RIF.1 ***/
-        testButton.setOnClickListener(new View.OnClickListener() {
+        registerForContextMenu(dbaListView);
+
+    }
+
+    private void listaUtenti(final Context context, final boolean no_filter) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIurl.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        APIservice service = retrofit.create(APIservice.class);  //accesso a tutti i servizi che ho fatto
+
+        Call<result_listaUtenti> call = service.getListaUtenti();
+        call.enqueue(new Callback<result_listaUtenti>() {
             @Override
-            public void onClick(View v) {
-                String tipoAttore = spinnerAttori.getSelectedItem().toString();
-                String id = "TestAppId";
-                String nome = "TestAppNome";
-                String cognome = "TestAppCognome";
-                String password = "TestAppPassword";
-                writeNewUser(tipoAttore, id, nome, cognome, password);
+            public void onResponse(Call<result_listaUtenti> call, Response<result_listaUtenti> response) {
+
+                List<Attore> list = response.body().getUtenti();
+                List<Attore> filtered_list = filtraLista(list, no_filter);
+                attoriListAdapter = new AttoriListAdapter(context, R.layout.attore_view, new ArrayList<Attore>(filtered_list));
+                dbaListView.setAdapter(attoriListAdapter);
+                registerForContextMenu(dbaListView);
+
+            }
+
+            @Override
+            public void onFailure(Call<result_listaUtenti> call, Throwable t) {
+                Toast.makeText(DBAActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private List<Attore> filtraLista(List<Attore> list, boolean no_filter){
+
+        String filtro = spinnerAttori.getSelectedItem().toString();
+        List<Attore> new_list = new ArrayList<Attore>();
+
+        if(!no_filter) {
+            for (Attore tmp : list) {
+
+                if (tmp.getTipo().equals(filtro))
+                    new_list.add(tmp);
+
+            }
+        }
+
+        return new_list;
+
+    }
+
+    private void elimina(final String idattore){
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIurl.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        APIservice service = retrofit.create(APIservice.class);  //accesso a tutti i servizi che ho fatto
+
+        Call<result_delete> call = service.cancellaUtente(idattore);
+        call.enqueue(new Callback<result_delete>() {
+            @Override
+            public void onResponse(Call<result_delete> call, Response<result_delete> response) {
+                Log.e("Response", response.body().getMessage());
+                Toast.makeText(DBAActivity.this, idattore + " eliminato", Toast.LENGTH_SHORT).show();
+                listaUtenti(getApplicationContext(), false);
+            }
+
+            @Override
+            public void onFailure(Call<result_delete> call, Throwable t) {
+                Toast.makeText(DBAActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
+    private void modifica(){
+        Toast.makeText(DBAActivity.this, "Modifica " + getString(R.string.work_in_progress), Toast.LENGTH_SHORT).show();
+    }
+
+
 
     /*** Gestione del tasto indietro digitale ***/
     @Override
@@ -351,62 +286,6 @@ public class DBAActivity extends AppCompatActivity {
 
     }
 
-
-    /*** DA IMPLEMENTARE ***/
-    /*** RIF. 1 ***/
-
-    /*
-
-     */
-
-
-    //Metodo per scrivere un nuovo utente nel DB
-    private void writeNewUser(String tipoAttore, String userId, String nome, String cognome, String password) {
-
-        String table = "AttoriTestApp";
-
-        Attore user = new Attore(userId, tipoAttore, nome, cognome, password);
-
-        mDatabase.child(table).child(tipoAttore).child(userId).setValue(user);
-
-    }
-
-    /*** TEST ***/
-    /*** VEDI RIF.2 ***/
-    //Metodo provvisorio per leggere l'Id dell'elemento trovato nel DB
-    private String readId(String table, String tipoAttore, String userId, DataSnapshot dataSnapshot) {
-
-        String s = "";
-
-        s = dataSnapshot.child(table).child(tipoAttore).getKey();
-        //s = dataSnapshot.child(table).child(tipoAttore).getValue().toString();
-
-        return s;
-
-    }
-
-    //Metodo per leggere un utente nel DB
-    private Attore readUser(String table, String tipoAttore, String userId, DataSnapshot dataSnapshot) {
-
-        Attore attore;
-
-        attore = dataSnapshot.child(table).child(tipoAttore).child(userId).getValue(Attore.class);
-
-        return attore;
-
-    }
-
-    //Metodo per convertire i valori della classe Attore in una serie di righe stampabili a video
-    private String getPrintableUser(String tipoAttore, Attore attore){
-
-        String s = "";
-
-        s = tipoAttore + "\n- " + attore.getNome() + "\n- " + attore.getCognome() + "\n- " + attore.getPassword();
-
-        return s;
-
-    }
-
     //Metodo per lanciare correttamente una nuova activity
     private void activityStart(Class activity){
 
@@ -415,6 +294,5 @@ public class DBAActivity extends AppCompatActivity {
 
 
     }
-
 
 }

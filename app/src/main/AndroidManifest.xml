@@ -28,7 +28,7 @@
         <activity android:name=".Activity.DBAActivity" />
         <activity android:name=".Activity.Nuovo_utenteActivity" />
         <activity android:name=".Activity.OperaioActivity" />
-        <activity android:name=".Activity.DBAActivity2"></activity>
+        <activity android:name=".Activity.DBAActivity"></activity>
     </application>
 
 </manifest>

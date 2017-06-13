@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (tipoUser.equals(getString(R.string.user_developer)) || tipoUser.equals(getString(R.string.user_DBA))) {
                 finish();
-                activityStart(DBAActivity2.class);
+                activityStart(DBAActivity.class);
             } else if (tipoUser.equals(getString(R.string.user_operaio))) {
                 finish();
                 /*** TEST ***/
