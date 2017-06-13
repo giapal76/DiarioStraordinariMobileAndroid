@@ -5,6 +5,6 @@ package com.example.andrea.diariostraordinari.API;
  */
 public class APIurl {
     //qui devo mettere ogni volta l'indirizzo ip della macchina, altrimenti non va! e quindi poi il percorso
-    public  static final String BASE_URL = "http://10.66.66.208/API/public/";
+    public  static final String BASE_URL = "http://192.168.1.25/API/public/";
 }
 

@@ -2,12 +2,10 @@ package com.example.andrea.diariostraordinari.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -55,7 +53,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /***
  * Classe per generare un nuovo operaio nel DB Firebase
  */
-public class Nuovo_operaioActivity extends AppCompatActivity {
+public class Nuovo_utenteActivity extends AppCompatActivity {
 
     //View dell'Activity per le notifiche all'utente
     private View myView;
@@ -69,7 +67,7 @@ public class Nuovo_operaioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nuovo_operaio);
+        setContentView(R.layout.nuovo_utente);
         //Setto il titolo del menù
         getSupportActionBar().setTitle(titoloActivity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -118,13 +116,13 @@ public class Nuovo_operaioActivity extends AppCompatActivity {
                 call.enqueue(new Callback<result_insert>() {
                     @Override
                     public void onResponse(Call<result_insert> call, Response<result_insert> response) {
-                        Toast.makeText(Nuovo_operaioActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Nuovo_utenteActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         reset();
                     }
 
                     @Override
                     public void onFailure(Call<result_insert> call, Throwable t) {
-                        Toast.makeText(Nuovo_operaioActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Nuovo_utenteActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

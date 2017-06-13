@@ -86,7 +86,7 @@ public class DBAActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
 
                 //Avvio la nuova Activity per aggiungere un nuovo utente
-                activityStart(Nuovo_operaioActivity.class);
+                activityStart(Nuovo_utenteActivity.class);
 
                 return false;
 
