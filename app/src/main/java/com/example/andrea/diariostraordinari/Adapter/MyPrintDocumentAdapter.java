@@ -148,7 +148,7 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
             myPdfDocument.close();
             myPdfDocument = null;
         }
-
+        
         callback.onWriteFinished(pageRanges);
     }
 
