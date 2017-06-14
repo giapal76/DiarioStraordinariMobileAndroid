@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     //Variabili di classe
     private EditText editTextEmail, editTextPassword;
     private Button buttonAccesso;
+    //View dell'Activity per le notifiche all'utente
     private View loginFormView;
 
     //Metodo onCreate per il caricamento delle parti grafiche dell'activity
@@ -94,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /*** VEDI RIF. 1 ***/
-    //Metodo per gestire la connessione al DB e controllare le credenziali
+    //Metodo per gestire la connessione al DB e per controllare le credenziali
     private void accesso() {
         //Acquisto i dati inseriti dall'utente nel form
         String email = editTextEmail.getText().toString();
