@@ -242,8 +242,6 @@ public class DBAActivity extends AppCompatActivity {
         Toast.makeText(DBAActivity.this, "Modifica " + getString(R.string.work_in_progress), Toast.LENGTH_SHORT).show();
     }
 
-
-
     /*** Gestione del tasto indietro digitale ***/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -289,6 +287,7 @@ public class DBAActivity extends AppCompatActivity {
     //Metodo per lanciare correttamente una nuova activity
     private void activityStart(Class activity){
 
+        //finish();
         Intent i = new Intent(DBAActivity.this, activity);
         startActivity(i);
 

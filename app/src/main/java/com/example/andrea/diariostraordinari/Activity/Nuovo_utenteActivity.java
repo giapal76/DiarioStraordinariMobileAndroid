@@ -1,9 +1,11 @@
 package com.example.andrea.diariostraordinari.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -132,6 +134,41 @@ public class Nuovo_utenteActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    /*** Gestione del tasto indietro digitale ***/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                exitByBackKey();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /*** Gestione del tasto indietro ***/
+    @Override
+    public void onBackPressed() {
+        exitByBackKey();
+    }
+
+    protected void exitByBackKey() {
+
+        activityStart(DBAActivity.class);
+
+    }
+
+    //Metodo per lanciare correttamente una nuova activity
+    private void activityStart(Class activity){
+
+        finish();
+        Intent i = new Intent(Nuovo_utenteActivity.this, activity);
+        startActivity(i);
+
 
     }
 
