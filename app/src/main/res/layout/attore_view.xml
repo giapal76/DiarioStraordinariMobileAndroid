@@ -12,7 +12,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/element_margin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="textStart"
                     android:text="id"
-                    android:textSize="22dp">
+                    android:textSize="@dimen/attore_text_size">
                 </TextView>
 
                 <TextView
@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="textStart"
                     android:text="nome"
-                    android:textSize="22dp">
+                    android:textSize="@dimen/attore_text_size">
                 </TextView>
 
                 <TextView
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="textStart"
                     android:text="cognome"
-                    android:textSize="22dp">
+                    android:textSize="@dimen/attore_text_size">
                 </TextView>
 
             </LinearLayout>
