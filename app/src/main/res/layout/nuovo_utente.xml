@@ -139,28 +139,17 @@
 
             </LinearLayout>
 
-            <!-- Contenitore pulsante -->
-            <LinearLayout
-                android:id="@+id/newUserButtonLayout"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:orientation="vertical">
-
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/inserisci"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_check_circle_white_36dp" />
-
-            </LinearLayout>
-
         </LinearLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/newFABinserisci"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_check_circle_white_36dp" />
 
 </android.support.design.widget.CoordinatorLayout>
 

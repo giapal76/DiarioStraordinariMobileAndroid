@@ -92,7 +92,7 @@ public class Nuovo_utenteActivity extends AppCompatActivity {
 
 
         /*** GESTIONE DEL FloatingActionButton ***/
-        FloatingActionButton inserisci = (FloatingActionButton) findViewById(R.id.inserisci);
+        FloatingActionButton inserisci = (FloatingActionButton) findViewById(R.id.newFABinserisci);
         inserisci.setOnClickListener(new View.OnClickListener() {
 
             @Override
