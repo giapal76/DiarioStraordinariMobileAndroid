@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextPassword;
     private Button buttonAccesso;
     //View dell'Activity per le notifiche all'utente
-    private View loginFormView;
+    private View loginView;
 
     //Metodo onCreate per il caricamento delle parti grafiche dell'activity
     @Override
@@ -76,10 +76,10 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Collego gli elementi del file activity_login.xml alla classe
+        loginView = findViewById(R.id.loginContainerLayout);
         editTextEmail = (EditText) findViewById(R.id.matricola);
         editTextPassword = (EditText) findViewById(R.id.password);
         buttonAccesso = (Button) findViewById(R.id.sign_in_button);
-        loginFormView = findViewById(R.id.login_form);
 
         //Listener sul button di accesso
         buttonAccesso.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<result_accesso> call, Response<result_accesso> response) {
 
                 //Notifico all'utente che la connessione è avvenuta
-                Snackbar.make(loginFormView, response.body().getMessage(), Snackbar.LENGTH_LONG)
+                Snackbar.make(loginView, response.body().getMessage(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 //Richiamo il metodo per gestire l'apertura dell'activity adatta all'utente
                 apriNuovaSchermata(response);
@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<result_accesso> call, Throwable t) {
 
                 //Notifico all'utente che la connessione non è avvenuta
-                Snackbar.make(loginFormView, t.getMessage(), Snackbar.LENGTH_LONG)
+                Snackbar.make(loginView, t.getMessage(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
             }
@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                 //lo comunico nel file di Log.e
                 Log.e(getString(R.string.log_e_DB_read), getString(R.string.user_error));
                 //e lo comunico all'utente
-                  Snackbar.make(loginFormView, getString(R.string.error_DB_read), Snackbar.LENGTH_LONG)
+                  Snackbar.make(loginView, getString(R.string.error_DB_read), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
 
@@ -202,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /*** VEDI RIF. 3 ***/
-    //Metodo per gestire l'uscita dall'app
+    //Metodo per gestire l'uscita dall'activity
     protected void exitByBackKey() {
 
         /*Comunico all'utente che l'app sta per essere chiusa e

@@ -76,9 +76,9 @@ public class DBAActivity extends AppCompatActivity {
     //Variabili di classe
     private ListView dbaListView;
     private AttoriListAdapter attoriListAdapter;
-    private AppCompatSpinner spinnerAttori;
+    private AppCompatSpinner dbaSpinnerAttori;
     //View dell'Activity per le notifiche all'utente
-    private View myView;
+    private View dbaView;
 
     /*** VEDI RIF. 4 ***/
     //Stringa per il titolo dell'activity
@@ -160,17 +160,17 @@ public class DBAActivity extends AppCompatActivity {
 
 
         //Collego gli elementi del file activity_login.xml alla classe
-        myView = findViewById(R.id.dbaContainerLayout);
+        dbaView = findViewById(R.id.dbaContainerLayout);
         dbaListView = (ListView) findViewById(R.id.dbaListView);
-        spinnerAttori = (AppCompatSpinner) findViewById(R.id.dbaSelezioneAttoreSpinner);
+        dbaSpinnerAttori = (AppCompatSpinner) findViewById(R.id.dbaSelezioneAttoreSpinner);
 
         /*** VEDI RIF. 6 ***/
         //Creo l'adapter per inserire i valori nello spinner
         final ArrayAdapter<CharSequence> adapterAttori = createSpinnerAdapter();
         //Applico l'adapter allo spinner
-        spinnerAttori.setAdapter(adapterAttori);
+        dbaSpinnerAttori.setAdapter(adapterAttori);
         //Setto un Listener per gestire la selezione degli elementi nello Spinner
-        spinnerAttori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        dbaSpinnerAttori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -275,7 +275,7 @@ public class DBAActivity extends AppCompatActivity {
             public void onFailure(Call<result_listaUtenti> call, Throwable t) {
 
                 //Notifico all'utente che la connessione non è avvenuta
-                Snackbar.make(myView, t.getMessage(), Snackbar.LENGTH_LONG)
+                Snackbar.make(dbaView, t.getMessage(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
             }
@@ -287,7 +287,7 @@ public class DBAActivity extends AppCompatActivity {
     //Metodo per filtrare la lista in base allo spinner
     private List<Attore> filtraLista(List<Attore> list, boolean no_filter){
 
-        String filtro = spinnerAttori.getSelectedItem().toString();
+        String filtro = dbaSpinnerAttori.getSelectedItem().toString();
         List<Attore> new_list = new ArrayList<Attore>();
 
         //Controllo se la lista non deve essere filtrata
@@ -329,7 +329,7 @@ public class DBAActivity extends AppCompatActivity {
             public void onResponse(Call<result_delete> call, Response<result_delete> response) {
 
                 //Notifico all'utente che l'utente è stato eliminato dal DB
-                Snackbar.make(myView, idattore + " eliminato", Snackbar.LENGTH_LONG)
+                Snackbar.make(dbaView, idattore + " eliminato", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 /*** VEDI RIF. 7 ***/
                 //Ricarico la ListView
@@ -342,7 +342,7 @@ public class DBAActivity extends AppCompatActivity {
             public void onFailure(Call<result_delete> call, Throwable t) {
 
                 //Notifico all'utente che la connessione non è avvenuta
-                Snackbar.make(myView, t.getMessage(), Snackbar.LENGTH_LONG)
+                Snackbar.make(dbaView, t.getMessage(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
             }
@@ -354,7 +354,7 @@ public class DBAActivity extends AppCompatActivity {
     //Metodo per gestire la connessione al DB e per modificare i dati dell'utente selezionato
     private void modifica(){
         //Notifico all'utente che la funzione è in fase di sviluppo
-        Snackbar.make(myView, getString(R.string.work_in_progress), Snackbar.LENGTH_LONG)
+        Snackbar.make(dbaView, getString(R.string.work_in_progress), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
@@ -389,7 +389,7 @@ public class DBAActivity extends AppCompatActivity {
     }
 
     /*** VEDI RIF. 3 ***/
-    //Metodo per gestire l'uscita dall'app
+    //Metodo per gestire l'uscita dall'activity
     protected void exitByBackKey() {
 
         /*Comunico all'utente che l'app sta per essere chiusa e
