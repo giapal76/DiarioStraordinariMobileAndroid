@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.print.PrintManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -73,8 +72,6 @@ import java.util.List;
 public class OperaioActivity extends AppCompatActivity {
 
     //Variabili di classe
-    //Variabile di controllo per l'apertura dell'activity
-    private boolean fist = true;
     /*** RIF. 7 ***/
     /*Variabili per la gesione delle tab*/
     private TabLayout tabLayout;
@@ -87,6 +84,8 @@ public class OperaioActivity extends AppCompatActivity {
             R.drawable.ic_query_builder_white_36dp
 
     };
+    //Variabile di controllo per l'apertura dell'activity
+    private boolean fist = true;
     /*** RIF. 4 ***/
     //Titolo da settare nell'activity
     String titoloActivity = "Operaio Activity";
@@ -102,9 +101,8 @@ public class OperaioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operaio);
 
-        /*Metodo per inizializzare l'array delle stringhe per la stampa
-        Da richiamare solo all'apertura dell'activity altrimenti resetta i campi quando si
-        gira lo schermo */
+        /*Controllo per inizializzare l'array delle stringhe per la stampa solo all'apertura
+        dell'activity, altrimenti resetta i campi quando si gira lo schermo */
         if(fist){
 
             inizializzaArrayStringhe();
@@ -112,29 +110,31 @@ public class OperaioActivity extends AppCompatActivity {
 
         }
 
-        /*** VEDI RIF. 3 ***/
-        //Acquisisco l'ActionBar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        /*** VEDI RIF. 4 ***/
+        //Setto il titolo e abilito il tasto indietro digitale nell'ActionBar
         getSupportActionBar().setTitle(titoloActivity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*** VEDI RIF. 3 ***/
-        /*** Collego i Fragments all'Activity ***/
+        //Collego gli elementi del file activity_operaio.xml alla classe
+        FloatingActionButton creaPDF = (FloatingActionButton) findViewById(R.id.FABpdf);
+
+        /*** VEDI RIF. 7 ***/
+        //Collego i Fragments all'Activity
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-
         //Setup della TabBar
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+        //Listener per la selezione della TAB
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
+                //Acquisisco la TAB corrente
                 int item_corrente = viewPager.getCurrentItem();
 
-                Log.e("viewPager", "OnTouchListener");
-                Log.e("viewPager", "CurrentItem = " + item_corrente);
-
+                //Richiamo il metodo per ottenere le stringhe da passare al PDF
                 acquistaStringhe(item_corrente, true);
 
             }
@@ -150,7 +150,7 @@ public class OperaioActivity extends AppCompatActivity {
             }
         });
 
-        // Controllo dello swipe da una tab all'altra
+        //Detector dello swipe da una tab all'altra
         final GestureDetector gesture = new GestureDetector(this,
                 new GestureDetector.SimpleOnGestureListener() {
 
@@ -163,8 +163,10 @@ public class OperaioActivity extends AppCompatActivity {
                     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                            float velocityY) {
 
+                        //Acquisisco la TAB corrente
                         int item_corrente = viewPager.getCurrentItem();
 
+                        //Richiamo il metodo per ottenere le stringhe da passare al PDF
                         acquistaStringhe(item_corrente, true);
 
                         return super.onFling(e1, e2, velocityX, velocityY);
@@ -179,21 +181,14 @@ public class OperaioActivity extends AppCompatActivity {
             }
         });
 
-        /*** RIF. 4 ***/
-        /*** GESTIONE DEL FloatingActionButton ***/
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        /*** VEDI RIF. 5 ***/
+        //Setto un Listener per gestire la creazione del file PDF
+        creaPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //Le Snackbar sono molto più fighe dei vecchi Toast per avvisare l'utente
-                Snackbar.make(view, getString(R.string.work_in_progress), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                /*** VEDI RIF. 1 ***/
-
                 int item_corrente = viewPager.getCurrentItem();
-
+                //Richiamo il metodo per creare il file PDF
                 stampaDocumento(item_corrente);
 
             }
@@ -201,7 +196,7 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
-    /*** VEDI RIF. 3 ***/
+    /*** VEDI RIF. 7 ***/
     //Metodo per settare le icone delle tab
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
@@ -209,6 +204,7 @@ public class OperaioActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 
+    /*** VEDI RIF. 7 ***/
     //Metodo per settare la descrizione delle tab
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -218,8 +214,10 @@ public class OperaioActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    //Adatper per gestire le TAB (Collego i Fragments all'Activity)
+    /*** VEDI RIF. 7 ***/
+    //Adatper per associare una lista di Fragment alle TAB
     class ViewPagerAdapter extends FragmentPagerAdapter {
+
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
