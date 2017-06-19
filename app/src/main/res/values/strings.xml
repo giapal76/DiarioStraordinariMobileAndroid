@@ -55,6 +55,7 @@
         <item>DM6A - Molise</item>
         <item>DM7A - L"Aquila-Teramo</item>
         <item>DM7B - Pescara-Chieti</item>
+
     </string-array>
 
     <string-array name="uo_array">
@@ -63,13 +64,13 @@
         <item>UO 2 - Isernia</item>
         <item>UO 3 - Termoli</item>
 
-        <item>UO 1 - L"Aquila</item>
-        <item>UO 2 - Teramo</item>
-        <item>UO 3 - Sulmona</item>
+        <item>UO 4 - L"Aquila</item>
+        <item>UO 5 - Teramo</item>
+        <item>UO 6 - Sulmona</item>
 
-        <item>UO 1 - Pescara</item>
-        <item>UO 2 - Chieti</item>
-        <item>UO 3 - Vasto-Lanciano</item>
+        <item>UO 7 - Pescara</item>
+        <item>UO 8 - Chieti</item>
+        <item>UO 9 - Vasto-Lanciano</item>
 
     </string-array>
 
@@ -82,18 +83,59 @@
 
     <string-array name="operai_array">
 
+        <item>A254883 - Michele Spina</item>
+        <item>A256720 - Giuseppe Tamburro</item>
+        <item>A258243 - Emiliano Iagnemma</item>
+        <item>A260419 - Andrea Desiato</item>
+        <item>A260422 - Danilo Iannetta</item>
+        <item>A262817 - Pasquale Menanno</item>
+        <item>A436674 - Luca Mignogna</item>
+        <item>A436728 - Michele Enzo Santone</item>
+        <item>A438348 - Marco Spicciati</item>
+        <item>A452597 - Alexander D'Alessandro</item>
+        <item>A452619 - Matteo Antenucci</item>
         <item>A455556 - Andrea Petrella</item>
-        <item>A455557 - Tizio Rossi</item>
-        <item>A455558 - Caio Verdi</item>
-        <item>A455559 - Sempronio Bianchi</item>
+        <item>A523974 - Antonio Patullo</item>
+        <item>A525707 - Mario Griguoli</item>
+        <item>A525796 - Luigi Felice Pette</item>
+        <item>A526406 - Ciro Trivisonno</item>
+        <item>A529037 - Armando Tesone</item>
 
     </string-array>
 
     <string-array name="comuni_array">
 
-        <item>102 - Campobasso 1</item>
-        <item>103 - Campobasso 2</item>
-        <item>104 - Campobasso 3</item>
+        <item>100 - Baranello</item>
+        <item>101 - Boiano</item>
+        <item>102 - Busso</item>
+        <item>103 - Campobasso 1</item>
+        <item>104 - Campobasso 2</item>
+        <item>105 - Campobasso 3</item>
+        <item>106 - Campochiaro</item>
+        <item>107 - Campodipietra</item>
+        <item>108 - Campolieto</item>
+        <item>109 - Casalciprano</item>
+        <item>110 - Castelbottaccio</item>
+        <item>111 - Castellino Del Biferno</item>
+        <item>112 - Castelmauro</item>
+        <item>113 - Castropignano</item>
+        <item>114 - Cercemaggiore</item>
+        <item>115 - Cercepiccola</item>
+        <item>116 - Civitacampomarano</item>
+        <item>117 - Colle D'Anchise</item>
+        <item>118 - Duronia</item>
+        <item>119 - Ferrazzano</item>
+        <item>120 - Fossalto</item>
+        <item>121 - Gambatesa</item>
+        <item>122 - Gildone</item>
+        <item>123 - Guardiaregia</item>
+        <item>124 - Jelsi</item>
+        <item>125 - Limosano</item>
+        <item>126 - Lucito</item>
+        <item>127 - Lupara</item>
+        <item>128 - Macchia Valfortore</item>
+        <item>129 - Matrice</item>
+        <item>130 - Mirabello Sannitico</item>
 
     </string-array>
 

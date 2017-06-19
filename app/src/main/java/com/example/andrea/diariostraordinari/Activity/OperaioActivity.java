@@ -36,9 +36,9 @@ import java.util.List;
  *
  * /*** INIBITO *** = CODICE AUTOGENERATO NON RICHIESTO DALLE SPECIFICHE DEL PROGETTO
  *
- * /*** RIF N *** = RIFERIMENTO NUMERO N (SEGNALIBRO PER COMMENTI)
+ * /*** RIF. N *** = RIFERIMENTO NUMERO N (SEGNALIBRO PER COMMENTI)
  *
- * /*** VEDI RIF N *** = LA PORZIONE DI PROGRAMMA IN BASSO E' LEGATA AL RIFERIMENTO N
+ * /*** VEDI RIF. N *** = LA PORZIONE DI PROGRAMMA IN BASSO E' LEGATA AL RIFERIMENTO N
  *
  * /*** DA IMPLEMENTARE *** = CODICE DA IMPLEMENTARE (VEDI COMMENTI IN BASSO)
  *
@@ -46,19 +46,24 @@ import java.util.List;
  *
  */
 
-/*** COSE DA FARE
+/*** RIFERIMENTI ***
  *
- * VA TUTTO COMMENTATO PER BENE
- *
- * *** DA MODIFICARE ***
- *
- * VEDI RIF. 1
- *
- * VEDI RIF. 2
- *
- * VEDI activity_operaio.xml RIF. 4
+ * RIF. 1 SERVIZI REST PER IL DB TRAMITE API SU SERVER
+ * RIF. 2 NAVIGAZIONE TRA ACTIVITY
+ * RIF. 3 GESTIONE TASTO INDIETRO
+ * RIF. 4 GESTIONE ACTIONBAR
+ * RIF. 5 GESTIONE DEL FLOATING ACTION BUTTON
+ * RIF. 6 GESTIONE SPINNER E ADAPTER
+ * RIF. 7 GESTIONE TAB E FRAGMENT
+ * RIF. 8 GESTIONE DELLA STAMPA
  *
  */
+
+/*** COSE DA FARE ***
+ *
+ * Decidere per bene le scritte da mandare a video per l'utente
+ *
+ * */
 
 
 /**
@@ -67,9 +72,10 @@ import java.util.List;
 
 public class OperaioActivity extends AppCompatActivity {
 
-
-    /*** RIF. 3 ***/
-    /*** TUTTO CIO' CHE RIGURADA TAB E FRAGMENT ***/
+    //Variabili di classe
+    //Variabile di controllo per l'apertura dell'activity
+    private boolean fist = true;
+    /*** RIF. 7 ***/
     /*Variabili per la gesione delle tab*/
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -81,19 +87,18 @@ public class OperaioActivity extends AppCompatActivity {
             R.drawable.ic_query_builder_white_36dp
 
     };
+    /*** RIF. 4 ***/
     //Titolo da settare nell'activity
     String titoloActivity = "Operaio Activity";
 
+    /*** RIF. 8 ***/
     //Valori da stampare
     private final int values = 14;
     private String [] printableValues = new String[values];
 
-    //Variabile di controllo per l'apertura dell'app
-    private boolean fist = true;
-
+    //Metodo onCreate per il caricamento delle parti grafiche dell'activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operaio);
 
