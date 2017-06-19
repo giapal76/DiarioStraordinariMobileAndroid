@@ -20,10 +20,11 @@ public class FragmentViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    //Costruttore
+    //Metodo costruttore
     public FragmentViewPagerAdapter(FragmentManager manager) {
         super(manager);
     }
+
     //Metodo per aggiungere un Fragment
     //Si associa per ogni Fragment una coppia di valori <Fragment, title> salvati nelle rispettive liste
     public void addFragment(Fragment fragment, String title) {
