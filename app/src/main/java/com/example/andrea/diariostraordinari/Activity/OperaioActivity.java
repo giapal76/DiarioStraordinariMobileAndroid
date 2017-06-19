@@ -202,18 +202,17 @@ public class OperaioActivity extends AppCompatActivity {
     /*** VEDI RIF. 7 ***/
     //Metodo per settare la descrizione delle tab
     private void setupViewPager(ViewPager viewPager) {
+        //Creo l'adapter complesso per i Fragment delle tab con un'istanza della classe FragmentViewPagerAdapter
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager());
+        //Aggiungo gli elementi all'Adapter
         adapter.addFragment(new OneFragment(), "DATA");
         adapter.addFragment(new TwoFragment(), "DESCRIZIONE");
         adapter.addFragment(new ThreeFragment(), "ORARIO");
         viewPager.setAdapter(adapter);
     }
 
-    /*****++++++++++++++++++++++++++++++++*/
-    /*** CONTINUARE A COMMENTARE DA QUI ***/
-    /***++++++++++++++++++++++++++++++++***/
-
-    /*** Gestione del tasto indietro digitale ***/
+    /*** VEDI RIF. 3 ***/
+    // Gestione del tasto indietro digitale
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -226,14 +225,19 @@ public class OperaioActivity extends AppCompatActivity {
         }
     }
 
-    /*** Gestione del tasto indietro fisico ***/
+    /*** VEDI RIF. 3 ***/
+    // Gestione del tasto indietro fisico
     @Override
     public void onBackPressed() {
         exitByBackKey();
     }
 
+    /*** VEDI RIF. 3 ***/
+    //Metodo per gestire l'uscita dall'activity
     protected void exitByBackKey() {
 
+        /*Comunico all'utente che l'app sta per essere chiusa e
+          faccio scegliere all'utente se vuole procedere*/
         AlertDialog alertbox = new AlertDialog.Builder(this)
                 .setMessage(getString(R.string.exit_request))
                 .setPositiveButton("Sì", new DialogInterface.OnClickListener() {
@@ -241,14 +245,14 @@ public class OperaioActivity extends AppCompatActivity {
                     // do something when the button is clicked
                     public void onClick(DialogInterface arg0, int arg1) {
 
+                        //Chiudo l'app
                         finishAffinity();
 
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-                    // do something when the button is clicked
                     public void onClick(DialogInterface arg0, int arg1) {
+                        //Non faccio nulla
                     }
                 })
                 .show();
@@ -263,8 +267,7 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
-    /*** RIF.1 ***/
-    /*** Vedi Adapter/MyPrintDocumentAdapter.java ***/
+    /*** VEDI RIF. 8 ***/
     //Metodo per avviare la stampa di un documento
     private void stampaDocumento(int item_corrente){
 
@@ -278,13 +281,17 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
+    /*** VEDI RIF. 8 ***/
+    //Metodo per acquisire le stringhe dal I Fragment
     private void acquistaStringheOneFragment(){
 
+        //Collego gli elementi del file fragment_one.xml alla classe
         AppCompatSpinner spinnerZona = (AppCompatSpinner) findViewById(R.id.opZonaSpinner);
         AppCompatSpinner spinnerUnitàOperativa = (AppCompatSpinner) findViewById(R.id.opUnitàOperativaSpinner);
         AppCompatSpinner spinnerStraordinarioEffettuato = (AppCompatSpinner) findViewById(R.id.opStraordinarioEffettuatoSpinner);
         DatePicker datePickerGiorno = (DatePicker) findViewById(R.id.opGiornoDatePicker);
 
+        //Acquisisco le stringhe e le salvo nell'array
         printableValues[0] = spinnerZona.getSelectedItem().toString();
         printableValues[1] = spinnerUnitàOperativa.getSelectedItem().toString();
         printableValues[2] = spinnerStraordinarioEffettuato.getSelectedItem().toString();
@@ -294,13 +301,17 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
+    /*** VEDI RIF. 8 ***/
+    //Metodo per acquisire le stringhe dal II Fragment
     private void acquistaStringheTwoFragment(){
 
+        //Collego gli elementi del file fragment_two.xml alla classe
         AppCompatSpinner spinnerOperaio = (AppCompatSpinner) findViewById(R.id.opOperaioSpinner);
         EditText editTextDescrizioneLavoro = (EditText) findViewById(R.id.opDescrizioneLavoroEditText);
         AppCompatSpinner spinnerComune = (AppCompatSpinner) findViewById(R.id.opComuneSpinner);
         AppCompatSpinner spinnerTipoStraordinario = (AppCompatSpinner) findViewById(R.id.opTipoStraordinarioSpinner);
 
+        //Acquisisco le stringhe e le salvo nell'array
         printableValues[6] = spinnerOperaio.getSelectedItem().toString();
         printableValues[7] = editTextDescrizioneLavoro.getText().toString();
         printableValues[8] = spinnerComune.getSelectedItem().toString();
@@ -308,11 +319,16 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
+    /*** VEDI RIF. 8 ***/
+    //Metodo per acquisire le stringhe dal III Fragment
     private void acquistaStringheThreeFragment(){
 
+        //Collego gli elementi del file fragment_three.xml alla classe
         TimePicker timePickerInizio = (TimePicker) findViewById(R.id.opTimePickerInizio);
         TimePicker timePickerFine = (TimePicker) findViewById(R.id.opTimePickerFine);
 
+        //Acquisisco le stringhe e le salvo nell'array
+        //Richiamo il metodo per formattare correttamente le stringhe per l'orario
         printableValues[10] = formattaOrario(timePickerInizio.getCurrentHour());
         printableValues[11] = formattaOrario(timePickerInizio.getCurrentMinute());
         printableValues[12] = formattaOrario(timePickerFine.getCurrentHour());
@@ -320,10 +336,14 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
+    /*** VEDI RIF. 8 ***/
+    //Metodo per acqusire tutte le stringhe necessarie alla stampa
     private void acquistaStringhe(int item_corrente, boolean is_swiped){
 
+        //Gestisco l'eccezzione per eventuali errori di caricamento degli elementi grafici
         try {
 
+            //Controllo il fragment corrente
             switch (item_corrente) {
 
                 case 0:
@@ -344,6 +364,7 @@ public class OperaioActivity extends AppCompatActivity {
             }
 
         }catch (Exception e){
+            //Comunico nel file Log.e l'errore riportato
             if(is_swiped)
                 Log.e("OperaioActivity.java", "IMPOSSIBILE ACQUISIRE LE STRINGHE DAL FRAGMENT DURANTE LO SWIPE");
             else
@@ -351,8 +372,10 @@ public class OperaioActivity extends AppCompatActivity {
         }
     }
 
+    //Metodo per formattare correttamente le stringhe per gli orari
     private String formattaOrario(int n){
 
+        //Aggiungo uno 0 come suffisso se il numero è < di 10
         if(n < 10)
             return "0" + Integer.toString(n);
         else

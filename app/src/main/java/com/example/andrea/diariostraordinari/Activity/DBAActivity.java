@@ -158,7 +158,6 @@ public class DBAActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(titoloActivity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         //Collego gli elementi del file activity_login.xml alla classe
         dbaView = findViewById(R.id.dbaContainerLayout);
         dbaListView = (ListView) findViewById(R.id.dbaListView);
