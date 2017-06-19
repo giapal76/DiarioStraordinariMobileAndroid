@@ -42,14 +42,11 @@ import com.example.andrea.diariostraordinari.R;
 
 /*** RIFERIMENTI ***
  *
- * RIF. 1 SERVIZI REST PER IL DB TRAMITE API SU SERVER
- * RIF. 2 NAVIGAZIONE TRA ACTIVITY
+ * RIF. 1 GESTIONE TAB, FRAGMENT E ADAPTER
+ * RIF. 2 GESTIONE DELLA STAMPA
  * RIF. 3 GESTIONE TASTO INDIETRO
  * RIF. 4 GESTIONE ACTIONBAR
  * RIF. 5 GESTIONE DEL FLOATING ACTION BUTTON
- * RIF. 6 GESTIONE SPINNER E ADAPTER
- * RIF. 7 GESTIONE TAB E FRAGMENT
- * RIF. 8 GESTIONE DELLA STAMPA
  *
  */
 
@@ -67,7 +64,7 @@ import com.example.andrea.diariostraordinari.R;
 public class OperaioActivity extends AppCompatActivity {
 
     //Variabili di classe
-    /*** RIF. 7 ***/
+    /*** RIF. 1 ***/
     /*Variabili per la gesione delle tab*/
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -85,7 +82,7 @@ public class OperaioActivity extends AppCompatActivity {
     //Titolo da settare nell'activity
     String titoloActivity = "Operaio Activity";
 
-    /*** RIF. 8 ***/
+    /*** RIF. 2 ***/
     //Valori da stampare
     private final int values = 14;
     private String [] printableValues = new String[values];
@@ -113,7 +110,7 @@ public class OperaioActivity extends AppCompatActivity {
         //Collego gli elementi del file activity_operaio.xml alla classe
         FloatingActionButton creaPDF = (FloatingActionButton) findViewById(R.id.FABpdf);
 
-        /*** VEDI RIF. 7 ***/
+        /*** VEDI RIF. 1 ***/
         //Collego i Fragments all'Activity
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -191,7 +188,7 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
-    /*** VEDI RIF. 7 ***/
+    /*** VEDI RIF. 1 ***/
     //Metodo per settare le icone delle tab
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
@@ -199,7 +196,7 @@ public class OperaioActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 
-    /*** VEDI RIF. 7 ***/
+    /*** VEDI RIF. 1 ***/
     //Metodo per settare la descrizione delle tab
     private void setupViewPager(ViewPager viewPager) {
         //Creo l'adapter complesso per i Fragment delle tab con un'istanza della classe FragmentViewPagerAdapter
@@ -267,7 +264,7 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
-    /*** VEDI RIF. 8 ***/
+    /*** VEDI RIF. 2 ***/
     //Metodo per avviare la stampa di un documento
     private void stampaDocumento(int item_corrente){
 
@@ -281,7 +278,7 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
-    /*** VEDI RIF. 8 ***/
+    /*** VEDI RIF. 2 ***/
     //Metodo per acquisire le stringhe dal I Fragment
     private void acquistaStringheOneFragment(){
 
@@ -301,7 +298,7 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
-    /*** VEDI RIF. 8 ***/
+    /*** VEDI RIF. 2 ***/
     //Metodo per acquisire le stringhe dal II Fragment
     private void acquistaStringheTwoFragment(){
 
@@ -319,7 +316,7 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
-    /*** VEDI RIF. 8 ***/
+    /*** VEDI RIF. 2 ***/
     //Metodo per acquisire le stringhe dal III Fragment
     private void acquistaStringheThreeFragment(){
 
@@ -336,7 +333,7 @@ public class OperaioActivity extends AppCompatActivity {
 
     }
 
-    /*** VEDI RIF. 8 ***/
+    /*** VEDI RIF. 2 ***/
     //Metodo per acqusire tutte le stringhe necessarie alla stampa
     private void acquistaStringhe(int item_corrente, boolean is_swiped){
 
