@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Colori Background -->
     <color name="colorPrimary">#ef090c</color>
     <color name="colorPrimaryDark">#9f3032</color>
-    <color name="colorAccent">#ffa640</color>
-    <color name="primary_text">#AAAAAA</color>
+    <color name="BackgroundSplash">#ffffff</color>
+
+    <!-- Colori Pulsanti -->
+    <color name="PrimaryButton">#006FB9</color>
+    <color name="TextButton">#ffffff</color>
+
+    <!-- Colore text -->
+    <color name="primary_text">#aaaaaa</color>
     <color name="secondary_text">#C8E8FF</color>
-    <color name="BackgroundSplash">#cbe9ff</color>
+    <color name="colorAccent">#ffa640</color>
+
 </resources>

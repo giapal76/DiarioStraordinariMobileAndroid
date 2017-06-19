@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/element_margin"
-            android:hint="@string/textview_intestazione"
+            android:hint="@string/textview_DBA"
             android:textSize="@dimen/hint_size" />
 
         <android.support.v7.widget.AppCompatSpinner

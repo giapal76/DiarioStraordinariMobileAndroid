@@ -104,9 +104,10 @@
         <item>Necessità Tecnico Gestionali - GST</item>
 
     </string-array>
-
+    <!-- Strings Form DBA -->
+    <string name="textview_DBA">Tipo attore</string>
     <!-- Strings Form Operaio -->
-    <string name="textview_intestazione">Intestazione</string>
+    <string name="textview_intestazione">Unità operativa</string>
     <string name="textview_inizio">Data</string>
     <string name="textview_record_risorse">Risorse intervenute</string>
     <string name="textview_record_descrizione">Descrizione attività</string>
