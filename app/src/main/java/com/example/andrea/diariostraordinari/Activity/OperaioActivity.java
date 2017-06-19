@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.print.PrintManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,14 +19,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import com.example.andrea.diariostraordinari.Adapter.FragmentViewPagerAdapter;
 import com.example.andrea.diariostraordinari.Adapter.MyPrintDocumentAdapter;
 import com.example.andrea.diariostraordinari.Fragments.OneFragment;
 import com.example.andrea.diariostraordinari.Fragments.ThreeFragment;
 import com.example.andrea.diariostraordinari.Fragments.TwoFragment;
 import com.example.andrea.diariostraordinari.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /*** LEGENDA COMMENTI:
  *
@@ -207,45 +202,16 @@ public class OperaioActivity extends AppCompatActivity {
     /*** VEDI RIF. 7 ***/
     //Metodo per settare la descrizione delle tab
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new OneFragment(), "DATA");
         adapter.addFragment(new TwoFragment(), "DESCRIZIONE");
         adapter.addFragment(new ThreeFragment(), "ORARIO");
         viewPager.setAdapter(adapter);
     }
 
-    /*** VEDI RIF. 7 ***/
-    //Adatper per associare una lista di Fragment alle TAB
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-
-    }
+    /*****++++++++++++++++++++++++++++++++*/
+    /*** CONTINUARE A COMMENTARE DA QUI ***/
+    /***++++++++++++++++++++++++++++++++***/
 
     /*** Gestione del tasto indietro digitale ***/
     @Override
