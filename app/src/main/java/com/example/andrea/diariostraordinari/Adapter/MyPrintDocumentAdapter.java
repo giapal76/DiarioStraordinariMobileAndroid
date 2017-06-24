@@ -14,6 +14,7 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
 import android.print.pdf.PrintedPdfDocument;
+import android.text.format.Time;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,36 +37,46 @@ import java.io.IOException;
  *
  */
 
-/*** COSE DA FARE
+/*** RIFERIMENTI ***
  *
- * *** DA MODIFICARE ***
- *
- * VEDI RIF. 1
+ * RIF. 1 FONTE
+ * RIF. 2 DISEGNO
+ * RIF. 3 GESTIONE INTESTAZIONE DOCUMENTO E NOME FILE
  *
  */
 
-/*** TEST ***/
-/*** RIF. 1 ***/
+/*** VEDI RIF. 1 ***/
 /*** http://www.techotopia.com/index.php/An_Android_Custom_Document_Printing_Tutorial ***/
-//Adapter per documenti di stampa
-    //C'è parecchio da modificare perché al momento crea solo un file di prova da stampare
+
+/**
+ * Adatper per gestire la creazione di un pdf da stampare
+ */
+
 public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
 
-    Context context;
-    private int pageHeight;
-    private int pageWidth;
-    public PdfDocument myPdfDocument;
-    public int totalpages = 1;
-    public String pdf_file_name = "test_print.pdf";
+    //Variabili di Classe
 
-    public int k_external_margin = 200;
-    public int horizontal_external_margin = 2970/k_external_margin;
-    public int vertical_external_margin = 2100/k_external_margin;
+    /*** VEDI RIF. 3 ***/
+    //Variabili per la creazione della pagina
+    private Context context;
+    private int altezzaPagina;
+    private int lunghezzaPagina;
+    private PdfDocument myPdfDocument;
+    private int totalpages = 1;
+    private String pdf_file_name = "straordinario";
+
+    //Variabili per gestire il margine della pagina
+    private final int A4_altezza = 2970;
+    private final int A4_lunghezza = 2100;
+    private int k_external_margin = 200;
+    private int horizontal_external_margin = A4_altezza/k_external_margin;
+    private int vertical_external_margin = A4_lunghezza/k_external_margin;
 
     //Valori da stampare
     private int values;
     private String [] printableValues = new String[values];
 
+    //Metodo costruttore
     public MyPrintDocumentAdapter(Context context, int values, String [] printableValues)
     {
         this.context = context;
@@ -73,6 +84,8 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
         this.printableValues = printableValues;
     }
 
+    /*** VEDI RIF. 3 ***/
+    //Metodo per gestire il Layout della pagina
     @Override
     public void onLayout(PrintAttributes oldAttributes,
                          PrintAttributes newAttributes,
@@ -80,13 +93,12 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
                          LayoutResultCallback callback,
                          Bundle metadata) {
 
+        //Creo un nuovo documento pdf
         myPdfDocument = new PrintedPdfDocument(context, newAttributes);
 
-        //Formato A4 = 2100mmx2970mm
-
-        pageHeight = 2100 - horizontal_external_margin;
-
-        pageWidth = 2970 - vertical_external_margin;
+        //altezza e lunghezza sono invertiti perché la pagina è in orizzontale
+        altezzaPagina = A4_lunghezza - horizontal_external_margin;
+        lunghezzaPagina = A4_altezza - vertical_external_margin;
 
 
 
@@ -96,7 +108,11 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
         }
 
         if (totalpages > 0) {
-            //Nome file pdf
+
+            //Richiamo il metodo per creare il nome del PDF
+            creaNomePdf();
+
+            //Setto il nome del file PDF
             PrintDocumentInfo.Builder builder = new PrintDocumentInfo
                     .Builder(pdf_file_name)
                     .setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
@@ -104,25 +120,27 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
 
             PrintDocumentInfo info = builder.build();
             callback.onLayoutFinished(info, true);
-        } else {
+        }
+        else {
             callback.onLayoutFailed("Page count is zero.");
         }
     }
 
-
+    /*** VEDI RIF. 2 ***/
+    //Metodo per gestire la scrittura degli elementi nel file PDF
     @Override
     public void onWrite(final PageRange[] pageRanges,
                         final ParcelFileDescriptor destination,
                         final CancellationSignal cancellationSignal,
                         final WriteResultCallback callback) {
 
+        //Itero per ogni pagina del documento
         for (int i = 0; i < totalpages; i++) {
             if (pageInRange(pageRanges, i))
             {
-                //Crea il foglio
-                PdfDocument.PageInfo newPage = new PdfDocument.PageInfo.Builder(pageWidth,
-                        pageHeight, i).create();
-
+                //Crea la nuova pagina
+                PdfDocument.PageInfo newPage = new PdfDocument.PageInfo.Builder(lunghezzaPagina,
+                        altezzaPagina, i).create();
                 PdfDocument.Page page =
                         myPdfDocument.startPage(newPage);
 
@@ -132,12 +150,15 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
                     myPdfDocument = null;
                     return;
                 }
+
                 //Disegna la pagina
-                myDrawPage(page,i);
+                disegnaPagina(page,i);
                 myPdfDocument.finishPage(page);
+
             }
         }
 
+        //Gestisco l'eccezione per la scrittura del PDF
         try {
             myPdfDocument.writeTo(new FileOutputStream(
                     destination.getFileDescriptor()));
@@ -150,8 +171,10 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
         }
         
         callback.onWriteFinished(pageRanges);
+
     }
 
+    //Metodo per controllare che la pagina attuale rientri nel range delle pagine previste
     private boolean pageInRange(PageRange[] pageRanges, int page)
     {
         for (int i = 0; i<pageRanges.length; i++)
@@ -163,19 +186,37 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
         return false;
     }
 
-    private void myDrawPage(PdfDocument.Page page, int pagenumber) {
+
+    /*** VEDI RIF. 3 ***/
+    //Metodo per disegnare la pagina
+    private void disegnaPagina(PdfDocument.Page page, int pagenumber) {
 
         Canvas canvas = page.getCanvas();
 
+        //Contatori per riga e colonna
         int riga, colonne;
+        //Totale righe per pagina
         int tot_righe = 18;
+        //Margine per gli elementi
         int margin = 6;
 
+        //Variabili per la grandezza del testo
         int primary_text_size = 7200/k_external_margin;
         int secondary_text_size = 6000/k_external_margin;
         int nome_operaio_text_size = 8000/k_external_margin;
         int tipo_straordinario_text_size = 5200/k_external_margin;
 
+        //Incremento il numero della pagina attuale
+        pagenumber++;
+
+        //Variabili per disegnare bordi cella e testo
+        Paint paintable_border = new Paint();
+        Paint paintable_text = new Paint();
+
+        //Setto il colore del testo a nero
+        paintable_border.setColor(Color.BLACK);
+
+        //Trasferisco i valori da stampare in variabili locali per una migliore gestione dei valori
         String ZONA = printableValues[0];
         String UO = printableValues[1];
         String PRESTAZIONE_DI_LAVORO = "PRESTAZIONE DI LAVORO STRAORDINARIO";
@@ -189,12 +230,7 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
         String ALLE = printableValues[12] + ":" + printableValues[13];
         String ORE = calcolaOre(DALLE, ALLE);
 
-        pagenumber++;
-
-        Paint paintable_border = new Paint();
-        Paint paintable_text = new Paint();
-
-        paintable_border.setColor(Color.BLACK);
+        //Inizio a scrivere gli elementi nel pdf per ogni riga
 
         //Prima riga
 
@@ -331,20 +367,46 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
 
     }
 
+    /*** VEDI RIF. 3 ***/
+    //Metodo per creare il nome del file PDF
+    private void creaNomePdf(){
+
+        //Acquisisco la data di questo istante
+        Time now = new Time(Time.getCurrentTimezone());
+        now.setToNow();
+
+        //Setto il nome del file PDF
+        pdf_file_name = "straordinario";
+
+        pdf_file_name += "." + Integer.toString(now.monthDay);
+        pdf_file_name += "_" + Integer.toString(now.month);
+        pdf_file_name += "_" + Integer.toString(now.year);
+        pdf_file_name += "_" + Integer.toString(now.hour);
+        pdf_file_name += "_" + Integer.toString(now.minute);
+        pdf_file_name += "_" + Integer.toString(now.second);
+
+    }
+
+    /*** VEDI RIF. 2 ***/
     //Disegno una cella con bordo
     private void drawCell(Boolean is_borded, Canvas canvas, Paint paintable_border, Paint paintable_text, String text, int margin_border, int left, int top, int right, int bottom){
 
+        //Creo un rettangolo per il bordo e uno per la cella
         Rect border_cell = new Rect(left, top, right, bottom);
         Rect cell = new Rect(left+margin_border, top+margin_border, right-margin_border, bottom-margin_border);
+        //Setto la posizione del testo rispetto alla cella
         float text_y = cell.centerY() + paintable_text.getTextSize()/2;
         float text_x = cell.left + margin_border;
 
-
+        //Setto il colore della cella
         Paint white_canvas = new Paint();
         white_canvas.setColor(Color.WHITE);
 
+        //Disegno il bordo (se richiesto)
         if (is_borded) canvas.drawRect(border_cell, paintable_border);
+        //Disegno la cella
         canvas.drawRect(cell, white_canvas);
+        //Disegno il testo
         canvas.drawText(text, text_x, text_y, paintable_text);
 
 
@@ -358,6 +420,7 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
 
     }
 
+    //Metodo per calcolare le ore di lavoro effettuate
     private String calcolaOre(String start, String finish){
 
         try {
@@ -379,8 +442,10 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
 
     }
 
+    //Metodo per formattare correttamente l'orario
     private String formattaOrario(int n){
 
+        //Se il numero è <10 allora inserisco uno 0 in suffisso al numero
         if(n < 10)
             return "0" + Integer.toString(n);
         else
@@ -388,6 +453,7 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
 
     }
 
+    //Metodo per gestire il monte ore nel caso in cui il lavoro venga effettuato a cavallo di due giorni consecutivi
     private int saltoDiData(int start_m, int finish_m){
 
         int ris = finish_m - start_m;;
@@ -398,7 +464,6 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
 
         return ris;
     }
-
 
 }
 

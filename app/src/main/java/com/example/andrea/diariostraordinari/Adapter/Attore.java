@@ -19,7 +19,7 @@ public class Attore {
     private String password;
 
 
-    //Metodo ostruttore vuoto richiesto di Default per il cast da parte del DB Firebase
+    //Metodo costruttore vuoto richiesto di Default per il cast da parte del DB Firebase
     public Attore(){
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
