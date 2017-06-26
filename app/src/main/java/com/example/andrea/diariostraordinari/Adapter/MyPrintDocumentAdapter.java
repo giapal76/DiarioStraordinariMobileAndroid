@@ -187,7 +187,7 @@ public class MyPrintDocumentAdapter extends PrintDocumentAdapter {
     }
 
 
-    /*** VEDI RIF. 3 ***/
+    /*** VEDI RIF. 2 ***/
     //Metodo per disegnare la pagina
     private void disegnaPagina(PdfDocument.Page page, int pagenumber) {
 
