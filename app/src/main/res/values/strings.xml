@@ -7,8 +7,6 @@
     <string name="action_sign_in">Accedi</string>
     <string name="action_sign_in_short">Accedi</string>
     <string name="user_not_found">Matricola o password non corretti. Riprovare.</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">Questa password è troppo corta</string>
     <string name="error_incorrect_password">Questa password non è corretta</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
@@ -177,6 +175,12 @@
 
     <!-- Strings snackbar -->
     <string name="salvataggio_riuscito">Salvataggio avvenuto con successo</string>
+
+    <!-- Stringhe non valide per nuovi utenti -->
+    <string name="error_invalid_id">ID non valido</string>
+    <string name="error_invalid_nome">Nome non valido</string>
+    <string name="error_invalid_cognome">Cognome non valido</string>
+    <string name="error_invalid_password">Password non valida</string>
 
 
 </resources>

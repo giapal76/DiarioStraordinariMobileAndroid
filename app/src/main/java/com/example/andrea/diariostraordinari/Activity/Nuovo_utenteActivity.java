@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.andrea.diariostraordinari.API.APIservice;
 import com.example.andrea.diariostraordinari.API.APIurl;
 import com.example.andrea.diariostraordinari.R;
@@ -44,6 +46,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * RIF. 4 GESTIONE ACTIONBAR
  * RIF. 5 GESTIONE DEL FLOATING ACTION BUTTON
  * RIF. 6 GESTIONE SPINNER E ADAPTER
+ * RIF. 7 GESTIONE ESPRESSIONI REGOLARI
  *
  */
 
@@ -67,6 +70,9 @@ public class Nuovo_utenteActivity extends AppCompatActivity {
     //View dell'Activity per le notifiche all'utente
     private View nuovoUtenteView;
 
+    //Variabile per gestire l'espressioni regolari
+    AwesomeValidation regularExpressionValidation;
+
     /*** VEDI RIF. 4 ***/
     //Stringa per il titolo dell'activity
     private String titoloActivity = "Nuovo Utente";
@@ -84,12 +90,21 @@ public class Nuovo_utenteActivity extends AppCompatActivity {
 
         //Collego gli elementi del file activity_login.xml alla classe
         nuovoUtenteView = findViewById(R.id.newOpContainerLayout);
-        insertId = (EditText) findViewById(R.id.newIdEditText); //.1
+        insertId = (EditText) findViewById(R.id.newIdEditText);
         nuovoUtenteSpinnerAttori = (AppCompatSpinner) findViewById(R.id.dbaSelezioneAttoriSpinner) ;
         insertName = (EditText) findViewById(R.id.newNameEditText);
         insertSurname = (EditText) findViewById(R.id.newSurnameEditText);
         insertPass = (EditText) findViewById(R.id.newPassEditText);
         FloatingActionButton inserisci = (FloatingActionButton) findViewById(R.id.newFABinserisci);
+
+        /*** VEDI RIF. 7 ***/
+        //Gestione delle espressioni regolari
+        regularExpressionValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
+        //Metodi per inserire le espressioni regolari nei vari EditText del form
+        controlloInserimentoName();
+        controlloInserimentoSurname();
+        controlloInserimentoPassword();
 
 
         /*** VEDI RIF. 6 ***/
@@ -104,11 +119,43 @@ public class Nuovo_utenteActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view){
-                //Richiamo il metodo per l'inserimento delle stringhe nel DB
-                insert();
+
+                /*** VEDI RIF. 7 ***/
+                if(regularExpressionValidation.validate())
+                    //Richiamo il metodo per l'inserimento delle stringhe nel DB
+                    insert();
+
             }
 
         });
+
+    }
+
+    /*** VEDI RIF 7 ***/
+    private void controlloInserimentoName(){
+
+        //ALFANUMERICO (ALMENO 2 CARATTERI)
+        String regularExpression = "^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\\d]{2,}$";
+
+        regularExpressionValidation.addValidation(this, R.id.newNameEditText, regularExpression, R.string.error_invalid_nome);
+
+    }
+
+    private void controlloInserimentoSurname(){
+
+        //ALFANUMERICO (ALMENO 2 CARATTERI)
+        String regularExpression = "^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\\d]{2,}$";
+
+        regularExpressionValidation.addValidation(this, R.id.newSurnameEditText, regularExpression, R.string.error_invalid_cognome);
+
+    }
+
+    private void controlloInserimentoPassword(){
+
+        //ALFANUMERICO (ALMENO 8 CARATTERI)
+        String regularExpression = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
+
+        regularExpressionValidation.addValidation(this, R.id.newPassEditText, regularExpression, R.string.error_invalid_password);
 
     }
 

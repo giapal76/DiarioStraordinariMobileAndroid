@@ -60,7 +60,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity {
 
     //Variabili di classe
-    private EditText editTextEmail, editTextPassword;
+    private EditText editTextId, editTextPassword;
     private Button buttonAccesso;
     //View dell'Activity per le notifiche all'utente
     private View loginView;
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //Collego gli elementi del file activity_login.xml alla classe
         loginView = findViewById(R.id.loginContainerLayout);
-        editTextEmail = (EditText) findViewById(R.id.matricola);
+        editTextId = (EditText) findViewById(R.id.matricola);
         editTextPassword = (EditText) findViewById(R.id.password);
         buttonAccesso = (Button) findViewById(R.id.sign_in_button);
 
@@ -87,8 +87,10 @@ public class LoginActivity extends AppCompatActivity {
             //Metodo per la gestione del click sul button
             @Override
             public void onClick(View v) {
-                //Richiamo il metodo che gestisce l'accesso al DB
-                accesso();
+
+            //Richiamo il metodo che gestisce l'accesso al DB
+            accesso();
+
             }
         });
 
@@ -98,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     //Metodo per gestire la connessione al DB e per controllare le credenziali
     private void accesso() {
         //Acquisto i dati inseriti dall'utente nel form
-        String email = editTextEmail.getText().toString();
+        String email = editTextId.getText().toString();
         String password = editTextPassword.getText().toString();
 
         //Mi collego al server locale per i servizi REST

@@ -24,19 +24,10 @@ public interface APIservice {
     Call<result_insert> insertUtente(@Field("idattore")String idattore, @Field("tipo")String tipo, @Field("nome")String nome,
                                      @Field("cognome")String cognome, @Field("password")String password);
 
-
-    /*** TEST ***
-     * CI PROVO
-     */
-
     @GET("listaUtenti")
     Call<result_listaUtenti> getListaUtenti();
 
-    /*** TEST ***
-     * CI RIPROVO
-     */
     @DELETE("delete/{id}")
     Call<result_delete> cancellaUtente(@Path("id") String idattore);
-
 
 }
